@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  q2q_warehouse.sdf —— 第 3 步用的仓库世界（无 Fuel 依赖，首次启动不联网）
+
+  和 q2q_empty.sdf 的三条约定完全一致：
+    1. 文件名 = <world name>；本文件叫 q2q_warehouse.sdf，所以 <world name="q2q_warehouse">。
+    2. 只放静态几何 + 光 + 物理/渲染插件。
+    3. 不引用 Fuel 远程模型。
+
+  为什么货架是"实心块"而不是精细模型：
+    2D 激光只看平面截面，对代价地图来说，一个 1.2×0.6 的立方体和一个带层板的货架
+    生成的障碍轮廓是一样的。第 3 步要验的是"能不能绕开"，不是"好不好看"。
+    要视觉保真时换世界文件即可，导航代码一行不用改（第 8 步）。
+
+  布局（世界原点在空旷区中央，机器人在 (0,0) 出生）：
+    - 三面墙：北 (y=+5)、西 (x=-6)、东 (x=+6)，缺口朝南，方便以后扩展传送带。
+    - 4 组货架：两排两列，通道净宽 1.4 m（车宽 0.57 m，留足余量）。
+    - 4 个料箱：散放在中央空地，给第 5/6 步做抓取目标。
+-->
+<!-- 10-24 controlled 50 mm / 50 g grasp fixture; original 80 mm world retained. -->
+<sdf version="1.7">
+  <world name="q2q_warehouse">
+
+    <!-- 物理步长 0.02 s（50 Hz）。这不是随手抄的默认值，是 2026-10-21 实测选出来的：
+         这台 VM 上 Gazebo 每跑一步有约 83 ms 的**固定开销**（与步长无关），
+         于是"每秒能推多少仿真时间"≈ 12 × 步长：
+             步长 0.005 → 实际 0.20 倍实时     步长 0.01 → 0.30
+             步长 0.02  → 0.40                 步长 0.05 → 0.60
+         原来的 0.003（333 Hz）只有 0.07 倍实时，扫一张图要半小时；0.02 提高到 0.40，
+         同时 50 Hz 对轮式底盘的运动学和差速控制仍然够用（车最快 0.45 m/s，每步 9 mm）。
+         详细测量见 docs/decisions/2026-10-21-仿真步长与实时率.md -->
+    <physics type="ode">
+      <max_step_size>0.005</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin name="ignition::gazebo::systems::Physics"
+            filename="libignition-gazebo-physics-system.so"/>
+    <plugin name="ignition::gazebo::systems::Contact" filename="libignition-gazebo-contact-system.so"/>
+    <plugin name="ignition::gazebo::systems::UserCommands"
+            filename="libignition-gazebo-user-commands-system.so"/>
+    <plugin name="ignition::gazebo::systems::SceneBroadcaster"
+            filename="libignition-gazebo-scene-broadcaster-system.so"/>
+    <plugin name="ignition::gazebo::systems::Sensors"
+            filename="libignition-gazebo-sensors-system.so">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name="ignition::gazebo::systems::Contact"
+            filename="libignition-gazebo-contact-system.so"/>
+
+    <scene>
+      <ambient>0.7 0.7 0.7 1</ambient>
+      <background>0.3 0.7 0.9 1</background>
+      <shadows>0</shadows>
+      <grid>false</grid>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>0</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>0 0 -1</direction>
+    </light>
+
+    <!-- 地面 100 × 100 m -->
+    <model name="ground_plane">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== 三面墙：0.2 m 厚、2 m 高 ===== -->
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0 5 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>12 0.2 2</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>12 0.2 2</size></box></geometry>
+          <material><ambient>0.55 0.55 0.6 1</ambient><diffuse>0.55 0.55 0.6 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-6 0 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 10 2</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 10 2</size></box></geometry>
+          <material><ambient>0.55 0.55 0.6 1</ambient><diffuse>0.55 0.55 0.6 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_east">
+      <static>true</static>
+      <pose>6 0 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 10 2</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 10 2</size></box></geometry>
+          <material><ambient>0.55 0.55 0.6 1</ambient><diffuse>0.55 0.55 0.6 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== 4 组货架：1.2 (长) × 0.6 (深) × 1.6 (高) =====
+         两排：y = +3.0 和 y = -1.0；每排两个：x = ±2.0
+         通道：两排之间净空 4.0 - 0.6 = 3.4 m；同排两个之间净空 4.0 - 1.2 = 2.8 m -->
+    <model name="shelf_a">
+      <static>true</static>
+      <pose>-2.0 3.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="shelf_b">
+      <static>true</static>
+      <pose>2.0 3.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="shelf_c">
+      <static>true</static>
+      <pose>-2.0 -1.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="shelf_d">
+      <static>true</static>
+      <pose>2.0 -1.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ===== 4 个料箱：0.4 × 0.4 × 0.3，散放在中央空地 =====
+         第 5/6 步拿它们当抓取目标；现在只是代价地图上的四个小障碍 -->
+    <model name="bin_1">
+      <static>true</static>
+      <pose>-0.8 0.9 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bin_2">
+      <static>true</static>
+      <!-- 留出出生点的整车转向空间，避免保守 footprint 与静态料箱重叠。 -->
+      <pose>0.4 1.2 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bin_3">
+      <static>true</static>
+      <pose>1.6 0.2 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bin_4">
+      <static>true</static>
+      <pose>-1.8 1.2 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+
+    <!-- ===== 抓取工位（2026-10-23 第 6 步）=====
+         为什么要有它：车体 0.987 x 0.669 m、臂在桌面高度前伸只有约 0.5 m，
+         地面料箱（顶面 z=0.30）会被自己的前轮挡住（实测 front_left_wheel 与
+         arm_0_lower_wrist_link 接触）。所以把抓取面抬到 z=0.50，并让料箱略微外挑，
+         使箱心落在 base 前方约 0.55 m 的可达域内。
+         pick_bin 是**动态**模型（其余都是 static）：要被真的抓起来、抬升、验证跟随，
+         静态模型在物理上不可能被搬动。 -->
+    <model name="workbench">
+      <static>true</static>
+      <pose>1.35 0.0 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.40 0.60 0.50</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.40 0.60 0.50</size></box></geometry>
+          <material><ambient>0.45 0.40 0.35 1</ambient><diffuse>0.45 0.40 0.35 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- pick_stand（0.08 m 垫高件）2026-10-23 晚删除：它是为「水平接近」把箱子抬起来用的，
+         而自上而下接近时它反而把箱子顶面抬到 0.66 —— 手腕可达上限 0.75 减 TCP 0.114，
+         只剩 0.09 m 的余量，手指没地方「从上方开始」。箱子直接坐在台面（z=0.54）就留出 0.25 m。 -->
+    <model name="pick_bin">
+      <!-- Explicit kinematic carry support; dormant until commanded. Not suction physics. -->
+      <plugin name="q2q::KinematicCarry" filename="libq2q_kinematic_carry.so"/>
+      <pose>1.20 0.0 0.525 0 0 0</pose>
+      <link name="link">
+          <sensor name="pick_contacts" type="contact"><always_on>true</always_on><update_rate>50</update_rate><contact><collision>c</collision></contact></sensor>
+        <inertial>
+          <mass>0.05</mass>
+          <inertia><ixx>0.0000208333333</ixx><iyy>0.0000208333333</iyy><izz>0.0000208333333</izz>
+                   <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        <!-- 碰撞与视觉必须同尺寸：0.20 改成 0.08 时漏改了 visual，
+             结果物理上 8 cm、画面上 20 cm，截图会骗人（2026-10-23 晚发现并修正）。 -->
+        <collision name="c"><geometry><box><size>0.05 0.05 0.05</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <material><ambient>0.85 0.45 0.15 1</ambient><diffuse>0.85 0.45 0.15 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

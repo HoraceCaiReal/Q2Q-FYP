@@ -1,0 +1,210 @@
+{
+  "passed": false,
+  "approach": "topdown",
+  "parameters": {
+    "approach": "topdown",
+    "open_grip": 0.0,
+    "close_grip": 0.7,
+    "effort": 5.0,
+    "pregrasp": 0.05,
+    "tip_past": -0.01,
+    "steps": 3,
+    "nudge": 0.008,
+    "step": 0.025,
+    "output": "/home/ros/.q2q/runs/step3_20261024_145248/grasp50_final.json",
+    "close_servo": false,
+    "close_mode": "direct",
+    "close_step": 0.008,
+    "contact_mm": 0.2,
+    "contact_flat": 2,
+    "preload": 0.02,
+    "hold": 15.0,
+    "box_center": [
+      1.2,
+      0.0,
+      0.525
+    ]
+  },
+  "model_sha256": "603258c62a4bec54080cdc9febbfde6f617046e1592dc07211ad2fd398841192",
+  "gripper_collision": "mesh",
+  "baseline_center_world": [
+    1.2,
+    0.0,
+    0.525
+  ],
+  "P1": {
+    "base_x": 0.8774,
+    "active_controllers": [
+      "arm_0_gripper_controller",
+      "arm_0_joint_trajectory_controller",
+      "joint_state_broadcaster",
+      "platform_velocity_controller"
+    ],
+    "yaw_deg": -0.0,
+    "box_vs_sdf_mm": 0.0
+  },
+  "P3": {
+    "source": "pose/info 真值",
+    "box_center_base": [
+      0.3226,
+      0.0,
+      0.525
+    ]
+  },
+  "P2": {
+    "base_motion_mm": 0.0,
+    "station_x": 0.8774109159552512,
+    "station_y": -4.986737200470305e-07
+  },
+  "open": {
+    "reached": true,
+    "position": 0.0,
+    "stalled": false,
+    "status": 4,
+    "effort_limit_enforced": false
+  },
+  "pregrasp": {
+    "target": [
+      0.3226,
+      0.0,
+      0.689
+    ],
+    "radius": 0.005,
+    "error_code": 1,
+    "points": 58
+  },
+  "scene": {
+    "object": "pick_bin",
+    "allowed_links": [
+      "arm_0_gripper_left_finger_dist_link",
+      "arm_0_gripper_right_finger_dist_link",
+      "arm_0_gripper_left_finger_prox_link",
+      "arm_0_gripper_right_finger_prox_link"
+    ]
+  },
+  "insert": {
+    "error_code": 1,
+    "fraction": 1.0,
+    "points": 14,
+    "target_ee": [
+      0.322962900201483,
+      -0.0009464126165880088,
+      0.6479068803310782
+    ]
+  },
+  "align": {
+    "lateral_error_mm": 1.0,
+    "depth_error_mm": 2.8,
+    "gap_mm": 112.3,
+    "jaw_center_base": [
+      0.3228,
+      -0.001,
+      0.5378
+    ],
+    "box_center_base": [
+      0.3226,
+      0.0,
+      0.525
+    ],
+    "box_drift_mm": 0.0
+  },
+  "close": {
+    "reached": false,
+    "position": 0.563,
+    "stalled": true,
+    "status": 6,
+    "effort_limit_enforced": false
+  },
+  "P5": {
+    "gap_mm": 59.6,
+    "box_pushed_mm": 0.6,
+    "jaw_center_base": [
+      0.3259,
+      0.0006,
+      0.5445
+    ],
+    "box_center_base": [
+      0.3225,
+      0.0005,
+      0.5249
+    ]
+  },
+  "error": "P5 contact failed; lifting is forbidden: {'gap_mm': 59.6, 'box_pushed_mm': 0.6, 'jaw_center_base': [0.3259, 0.0006, 0.5445], 'box_center_base': [0.3225, 0.0005, 0.5249]}",
+  "final_truth": {
+    "a200_0000/robot": {
+      "position": [
+        0.8773577621701104,
+        3.209830665633204e-05,
+        -1.3519080940041482e-05
+      ],
+      "quaternion": [
+        6.587489717147324e-06,
+        4.051648646353064e-05,
+        0.0001204673333745733,
+        0.9999999919013204
+      ],
+      "stamp_ns": 67135000000,
+      "yaw": 0.0002409352017238093
+    },
+    "pick_bin": {
+      "position": [
+        1.1998559443470793,
+        0.0005557922255853735,
+        0.5248616000934517
+      ],
+      "quaternion": [
+        0.0008981547692033599,
+        -0.001512646214297117,
+        -0.003666681206989553,
+        0.9999917302999897
+      ],
+      "stamp_ns": 67135000000,
+      "yaw": -0.007336118177947079
+    },
+    "arm_0_end_effector_link": {
+      "position": [
+        0.31931698988514934,
+        0.0002430013238899869,
+        0.6643661257559701
+      ],
+      "quaternion": [
+        0.00011358001219535198,
+        0.9996178007216572,
+        -0.0007959196628865027,
+        0.027633423455452256
+      ],
+      "stamp_ns": 67135000000,
+      "yaw": 3.1414092883156024
+    },
+    "arm_0_gripper_left_finger_dist_link": {
+      "position": [
+        0.325876577002854,
+        0.030383392423445874,
+        0.5444970067504104
+      ],
+      "quaternion": [
+        0.06713739361777145,
+        -0.7232096301671614,
+        -0.06360213025435832,
+        0.6844086281153954
+      ],
+      "stamp_ns": 67135000000,
+      "yaw": -1.8567857517931572
+    },
+    "arm_0_gripper_right_finger_dist_link": {
+      "position": [
+        0.32592953091825994,
+        -0.029261682450088644,
+        0.5446092088017157
+      ],
+      "quaternion": [
+        -0.061045729265012234,
+        -0.7237493732958088,
+        0.05758572394758842,
+        0.6849409813917247
+      ],
+      "stamp_ns": 67135000000,
+      "yaw": 1.8845010394178994
+    }
+  }
+}

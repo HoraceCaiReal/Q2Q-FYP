@@ -1,0 +1,93 @@
+{
+  "episode": "step7_1024_200714",
+  "wall_seconds": 97.7187488079071,
+  "picking_max_drift_m": 4.647122081531878e-06,
+  "final_guard_replay_passed": true,
+  "picking_stale_s": 10.0,
+  "transitions": [
+    {
+      "state": "IDLE",
+      "wall_time": 1792843661.332921,
+      "stamp_ns": 0,
+      "base_x": 0.0,
+      "base_command_locked": false
+    },
+    {
+      "state": "NAV_TO_PICK",
+      "wall_time": 1792843678.4269152,
+      "stamp_ns": 23700000000,
+      "base_x": -2.1536111680535537e-13,
+      "base_command_locked": false
+    },
+    {
+      "state": "WAIT_STILL",
+      "wall_time": 1792843682.6279094,
+      "stamp_ns": 27900000000,
+      "base_x": 0.7203630834467141,
+      "base_command_locked": false
+    },
+    {
+      "state": "DOCKING",
+      "wall_time": 1792843682.725289,
+      "stamp_ns": 28000000000,
+      "base_x": 0.7203630834466948,
+      "base_command_locked": false
+    },
+    {
+      "state": "PICK_READY",
+      "wall_time": 1792843686.1332622,
+      "stamp_ns": 31400000000,
+      "base_x": 0.8756371729167061,
+      "base_command_locked": true
+    },
+    {
+      "state": "PICKING",
+      "wall_time": 1792843686.2255843,
+      "stamp_ns": 31500000000,
+      "base_x": 0.8756371729167007,
+      "base_command_locked": true
+    },
+    {
+      "state": "PICKED",
+      "wall_time": 1792843708.8621573,
+      "stamp_ns": 51940000000,
+      "base_x": 0.8756362583448727,
+      "base_command_locked": true
+    },
+    {
+      "state": "STOWING",
+      "wall_time": 1792843708.9301898,
+      "stamp_ns": 52020000000,
+      "base_x": 0.8756362583448727,
+      "base_command_locked": true
+    },
+    {
+      "state": "UNDOCKING",
+      "wall_time": 1792843719.7779171,
+      "stamp_ns": 60120000000,
+      "base_x": 0.875636262388039,
+      "base_command_locked": false
+    },
+    {
+      "state": "NAV_TO_PLACE",
+      "wall_time": 1792843725.8303075,
+      "stamp_ns": 63640000000,
+      "base_x": 0.6337462037924816,
+      "base_command_locked": false
+    },
+    {
+      "state": "PLACE_READY",
+      "wall_time": 1792843762.7329252,
+      "stamp_ns": 97700000000,
+      "base_x": -0.04176241916810696,
+      "base_command_locked": true
+    },
+    {
+      "state": "DONE",
+      "wall_time": 1792843776.145664,
+      "stamp_ns": 107060000000,
+      "base_x": -0.0417624623606871,
+      "base_command_locked": false
+    }
+  ]
+}

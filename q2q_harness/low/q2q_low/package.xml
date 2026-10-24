@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>q2q_low</name>
+  <version>0.1.0</version>
+  <description>
+    下层执行器（第 7 步第四片）：把抓取流水线包成 action。
+    当前实现是适配器，内部调用 robot_bringup/scripts/grasp_run.py，结果以它的 JSON 为准。
+  </description>
+  <maintainer email="q2q@fyp.local">Cai Haoxian</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>q2q_interfaces</exec_depend>
+  <exec_depend>robot_sim_control</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

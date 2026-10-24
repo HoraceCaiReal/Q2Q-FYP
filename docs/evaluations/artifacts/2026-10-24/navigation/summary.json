@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "run_dir": "/home/ros/.q2q/runs/step3_20261024_114344/test_114345",
+  "results": [
+    {
+      "goal": [
+        3.0,
+        -2.5,
+        0.0
+      ],
+      "passed": true,
+      "cancel_test": false,
+      "odometry_source": "Gazebo physical ground truth",
+      "localization": "ground_truth_identity_map",
+      "trace_columns": [
+        "sim_s",
+        "map_x",
+        "map_y",
+        "map_yaw",
+        "physical_x",
+        "physical_y",
+        "physical_yaw"
+      ],
+      "initial_map_pose": [
+        -2.1551145094223242e-13,
+        -5.991345831615436e-16,
+        6.883965430165484e-14
+      ],
+      "status": "SUCCEEDED",
+      "stop_verification_wall_s": 0.5105513569999403,
+      "final_map_pose": [
+        2.906011876747765,
+        -2.5724521649550907,
+        0.12643010498759155
+      ],
+      "final_linear_mps": 0.0,
+      "final_angular_rps": 0.0,
+      "stop_hold_sim_s": 0.5,
+      "fresh_odometry": true,
+      "final_physical_pose": [
+        2.906011876747765,
+        -2.5724521649550907,
+        0.12643010498759155
+      ],
+      "xy_error_m": 0.11867216825842947,
+      "yaw_error_rad": 0.12643010498759155,
+      "physical_xy_error_m": 0.11867216825842947,
+      "physical_yaw_error_rad": 0.12643010498759155,
+      "wall_seconds": 66.953084859,
+      "max_linear_mps": 0.3496440860276093,
+      "max_angular_rps": 0.2513225842267275
+    },
+    {
+      "goal": [
+        -3.5,
+        2.0,
+        3.14
+      ],
+      "passed": true,
+      "cancel_test": false,
+      "odometry_source": "Gazebo physical ground truth",
+      "localization": "ground_truth_identity_map",
+      "trace_columns": [
+        "sim_s",
+        "map_x",
+        "map_y",
+        "map_yaw",
+        "physical_x",
+        "physical_y",
+        "physical_yaw"
+      ],
+      "initial_map_pose": [
+        2.906011876747765,
+        -2.5724521649550907,
+        0.12643010498759155
+      ],
+      "status": "SUCCEEDED",
+      "stop_verification_wall_s": 0.5074598779999633,
+      "final_map_pose": [
+        -3.436894212652117,
+        2.012780063935226,
+        3.033696503889369
+      ],
+      "final_linear_mps": 0.0,
+      "final_angular_rps": 0.0,
+      "stop_hold_sim_s": 0.5,
+      "fresh_odometry": true,
+      "final_physical_pose": [
+        -3.436894212652117,
+        2.012780063935226,
+        3.033696503889369
+      ],
+      "xy_error_m": 0.06438688089187657,
+      "yaw_error_rad": 0.10630349611063128,
+      "physical_xy_error_m": 0.06438688089187657,
+      "physical_yaw_error_rad": 0.10630349611063128,
+      "wall_seconds": 57.64434445400002,
+      "max_linear_mps": 0.34998885749675357,
+      "max_angular_rps": 0.27570455335080624
+    },
+    {
+      "goal": [
+        3.5,
+        4.0,
+        0.0
+      ],
+      "passed": true,
+      "cancel_test": true,
+      "odometry_source": "Gazebo physical ground truth",
+      "localization": "ground_truth_identity_map",
+      "trace_columns": [
+        "sim_s",
+        "map_x",
+        "map_y",
+        "map_yaw",
+        "physical_x",
+        "physical_y",
+        "physical_yaw"
+      ],
+      "initial_map_pose": [
+        -3.436894212652117,
+        2.012780063935226,
+        3.033696503889369
+      ],
+      "cancel_accepted": true,
+      "cancel_to_stopped_wall_s": 0.9643754250000711,
+      "stop_verification_wall_s": 0.8241969440000503,
+      "status": "CANCELED",
+      "final_map_pose": [
+        -3.5648264112858574,
+        1.8970236179432594,
+        1.5740283497813765
+      ],
+      "final_linear_mps": 0.0,
+      "final_angular_rps": 0.0,
+      "stop_hold_sim_s": 0.5,
+      "fresh_odometry": true,
+      "final_physical_pose": [
+        -3.5648264112858574,
+        1.8970236179432594,
+        1.5740283497813763
+      ],
+      "xy_error_m": 7.371179138040986,
+      "yaw_error_rad": 1.5740283497813765,
+      "physical_xy_error_m": 7.371179138040986,
+      "physical_yaw_error_rad": 1.5740283497813763,
+      "wall_seconds": 9.626744753000139,
+      "max_linear_mps": 0.023675487752476295,
+      "max_angular_rps": 0.18298770650289953
+    }
+  ]
+}

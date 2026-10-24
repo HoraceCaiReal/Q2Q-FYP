@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>robot_bringup</name>
+  <version>0.1.0</version>
+  <description>
+    移动抓取仓库仿真的统一启动入口（基本目标 第 1 步）。
+    bringup.launch.py 按 config/bringup.yaml 把 Gazebo Fortress + Husky A200 + Kinova Gen3 Lite
+    + ros2_control 控制器 + 可选 RViz 拉起来；机器人本体配置在 config/robot.yaml。
+  </description>
+  <maintainer email="q2q@fyp.local">Cai Haoxian</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- launch 运行时用到的 -->
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <!-- 仿真与机器人（Clearpath Humble 官方栈） -->
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>clearpath_gz</exec_depend>
+  <exec_depend>clearpath_generator_common</exec_depend>
+  <exec_depend>clearpath_generator_gz</exec_depend>
+  <exec_depend>clearpath_viz</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>trajectory_msgs</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>moveit_msgs</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-scipy</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>nav2_msgs</exec_depend>
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>nav2_regulated_pure_pursuit_controller</exec_depend>
+  <exec_depend>controller_manager_msgs</exec_depend>
+  <exec_depend>lifecycle_msgs</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
+
+  <!-- 本工程自己的世界包 -->
+  <exec_depend>robot_worlds</exec_depend>
+  <exec_depend>robot_sim_control</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

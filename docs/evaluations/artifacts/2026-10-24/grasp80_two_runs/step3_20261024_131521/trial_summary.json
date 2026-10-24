@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "run_dir": "/home/ros/.q2q/runs/step3_20261024_131521",
+  "world_sha256": "298f9d6b429d0850950698ee8efd981218fec8b68ec9e93477c85de55dff3654",
+  "fixture_m": 0.08,
+  "gripper_collision": "mesh",
+  "nav_included": true,
+  "stages": [
+    {
+      "name": "gripper_cycle",
+      "exit_code": 0
+    },
+    {
+      "name": "station_nav",
+      "exit_code": 0
+    },
+    {
+      "name": "station_approach",
+      "exit_code": 0
+    },
+    {
+      "name": "scene_loader",
+      "exit_code": 0
+    },
+    {
+      "name": "grasp",
+      "exit_code": 0
+    }
+  ]
+}

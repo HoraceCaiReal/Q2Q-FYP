@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>robot_sim_control</name><version>0.1.0</version>
+  <description>Explicit per-hardware position gain for the pinned Fortress control backend.</description>
+  <maintainer email="q2q@fyp.local">Cai Haoxian</maintainer><license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>gz_ros2_control</depend><depend>rclcpp</depend><depend>pluginlib</depend>
+  <depend>hardware_interface</depend><depend>rclcpp_lifecycle</depend>
+  <depend>ignition-transport11</depend><depend>ignition-msgs8</depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

@@ -1,0 +1,37 @@
+# robot_bringup 参数（第 1 步唯一可调处）
+#
+# 这里的键名 = launch 参数名，命令行可临时覆盖，例如：
+#   ros2 launch robot_bringup bringup.launch.py gui:=false
+#   ros2 launch robot_bringup bringup.launch.py world:=empty rviz:=true
+# 参数写在这里而不是写死在 launch 里，是为了第 3、4、8 步换场景/换工位时不用改代码。
+
+# ---------- 仿真环境 ----------
+world: q2q_empty        # 解析顺序：绝对路径 -> robot_worlds/worlds/<name>.sdf -> clearpath_gz/worlds/<name>.sdf
+                        # 当前可选：q2q_empty（本工程空场景）、empty / warehouse（Clearpath 自带，warehouse 首次要下 Fuel 模型）
+gui: true               # true = 开 Gazebo 界面（需要 DISPLAY）；false = 只开 server，省 CPU，适合 SSH 批量验收
+rviz: false             # true = 同时开 RViz（上游行为：generate:=false 时 RViz 不会跟着起）
+use_sim_time: true      # 仿真里必须 true，否则 TF/话题时间对不上
+generate: true          # true = 每次启动先按 config/robot.yaml 重新生成 setup 树（改了机器人配置必须 true）
+gz_verbose: 4           # 1-4，调大能看到 spawn/控制器加载细节
+lidar_update_rate: 15   # 激光刷新率（Hz）。生成器里硬编码 50，由补丁覆盖。
+                        # 50 Hz 在软渲染下是 CPU 大头（实测 RTF 0.24）；15 Hz 对 2D 建图/避障够用。
+                        # 第 3 步跑 Nav2 时如果发现代价地图更新跟不上，再往 10-20 之间调。
+
+# ---------- 机器人落点（world 坐标系，单位 m / rad）----------
+x: 0.0
+y: 0.0
+z: 0.15                 # A200 从略高处放下，避免轮子初始穿地
+yaw: 0.0
+
+# ---------- Clearpath 生成树落点 ----------
+# 生成物（robot.urdf.xacro / robot.srdf.xacro / platform|sensors|manipulators 的 launch+config）
+# 放在 ~/.q2q/setup/ 下，属于「可丢弃的构建产物」，不进代码仓；真源是 config/robot.yaml。
+setup_path: ~/.q2q/setup/a200_kinova
+
+# ---------- 第 3 步：导航 / 建图 ----------
+# 导航验收（要先用下面的 slam 建过图）：
+#   ros2 launch robot_bringup bringup.launch.py world:=q2q_warehouse nav:=true gui:=false
+# 建图（只起 slam_toolbox，不起导航栈）：
+#   ros2 launch robot_bringup bringup.launch.py world:=q2q_warehouse nav:=true slam:=true gui:=false
+nav: false                # true = 同时起 Nav2（参数在 config/nav2.yaml）
+slam: false               # 只在 nav 为 true 时有意义：true = 建图模式，false = 已有地图 + AMCL

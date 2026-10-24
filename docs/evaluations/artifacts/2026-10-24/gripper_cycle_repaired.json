@@ -1,0 +1,190 @@
+{
+  "passed": true,
+  "cycles_requested": 8,
+  "history": [
+    {
+      "cycle": 1,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.32679119053942
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8997,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.694398294953697
+      }
+    },
+    {
+      "cycle": 2,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0003,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31341941762878
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.698756566203333
+      }
+    },
+    {
+      "cycle": 3,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31890122407894
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8997,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.698772824426186
+      }
+    },
+    {
+      "cycle": 4,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31890124561497
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8997,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.69438123585223
+      }
+    },
+    {
+      "cycle": 5,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31475661662262
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.695683886034043
+      }
+    },
+    {
+      "cycle": 6,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31889714843949
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8997,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.695693832886974
+      }
+    },
+    {
+      "cycle": 7,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31596250778817
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.691175185296892
+      }
+    },
+    {
+      "cycle": 8,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31703801325968
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.691176880452268
+      }
+    }
+  ]
+}

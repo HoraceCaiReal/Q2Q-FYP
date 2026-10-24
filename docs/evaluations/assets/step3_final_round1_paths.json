@@ -1,0 +1,23 @@
+{
+  "goal_a": {
+    "samples": 94,
+    "interpolated_samples": 246,
+    "footprint_overlap_samples": 0,
+    "status": "SUCCEEDED",
+    "passed": true
+  },
+  "goal_b": {
+    "samples": 206,
+    "interpolated_samples": 535,
+    "footprint_overlap_samples": 0,
+    "status": "SUCCEEDED",
+    "passed": true
+  },
+  "cancel": {
+    "samples": 43,
+    "interpolated_samples": 82,
+    "footprint_overlap_samples": 0,
+    "status": "CANCELED",
+    "passed": true
+  }
+}

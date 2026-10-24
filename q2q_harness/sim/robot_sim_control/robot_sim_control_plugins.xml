@@ -1,0 +1,6 @@
+<library path="q2q_gain_system">
+  <class name="robot_sim_control/GainSystem" type="robot_sim_control::GainSystem"
+         base_class_type="gz_ros2_control::GazeboSimSystemInterface">
+    <description>Set an explicit gain before the upstream backend captures it.</description>
+  </class>
+</library>

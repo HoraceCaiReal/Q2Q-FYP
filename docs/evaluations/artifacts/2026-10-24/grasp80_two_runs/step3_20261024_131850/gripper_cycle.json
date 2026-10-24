@@ -1,0 +1,190 @@
+{
+  "passed": true,
+  "cycles_requested": 8,
+  "history": [
+    {
+      "cycle": 1,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.32679118971096
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.692150512128595
+      }
+    },
+    {
+      "cycle": 2,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0003,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31192797764109
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.692124482486797
+      }
+    },
+    {
+      "cycle": 3,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0003,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.3170395678212
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8997,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.694377210779876
+      }
+    },
+    {
+      "cycle": 4,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0003,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31596011216217
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.692131543688017
+      }
+    },
+    {
+      "cycle": 5,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31801477034725
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8997,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.69437931924195
+      }
+    },
+    {
+      "cycle": 6,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31801808314785
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.69213514774851
+      }
+    },
+    {
+      "cycle": 7,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.3180147756731
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8997,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.69437931924265
+      }
+    },
+    {
+      "cycle": 8,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0002,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.31801808314785
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.694379326410235
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "pid": 19058,
+  "start_tick": "270801",
+  "run_dir": "/home/ros/.q2q/runs/step3_20261024_200713",
+  "command": [
+    "ros2",
+    "launch",
+    "robot_bringup",
+    "bringup.launch.py",
+    "gui:=false",
+    "world:=/home/ros/.q2q/runs/step3_20261024_200713/world.sdf",
+    "nav:=true",
+    "gz_verbose:=2"
+  ],
+  "middleware": "rmw_fastrtps_cpp",
+  "dds_profile": "/home/ros/.q2q/fastdds_udp.xml",
+  "kinematic_carry": true,
+  "gripper_collision": "mesh",
+  "position_gain": 0.1,
+  "gripper_mode": "mimic",
+  "world": "q2q_warehouse_grasp50",
+  "world_sha256": "c6616507aac8e16fde3ece9325b19adc4458ee4a671486ad5698934f40d5cdc1"
+}

@@ -1,0 +1,9 @@
+# 第 7 步第四片：执行一次抓取流水线（可取消、有结构化结果）
+string target_id        # 目标 id（当前固定 pick_bin，留给以后的跟踪器）
+float64 timeout_s       # 整条流水线的时间预算；<=0 用服务端参数默认
+---
+bool success            # 流水线自己的判定（P1–P6 全过才 true）
+string reason           # 失败时给阶段名，如 P5_contact_failed
+float64 rise_mm         # 抬升累计（成功时才有意义）
+---
+string phase            # 当前阶段名（open/pregrasp/insert/close/lift…）

@@ -1,0 +1,31 @@
+{
+  "passed": false,
+  "run_dir": "/home/ros/.q2q/runs/step3_20261024_123053",
+  "world_sha256": "51ff4c7b90b0afa4437e2aed0420df41d8b2a234ca1d58d567b0d0c8b39e3708",
+  "fixture_m": 0.05,
+  "gripper_collision": "convex",
+  "nav_included": true,
+  "stages": [
+    {
+      "name": "gripper_cycle",
+      "exit_code": 0
+    },
+    {
+      "name": "station_nav",
+      "exit_code": 0
+    },
+    {
+      "name": "station_approach",
+      "exit_code": 0
+    },
+    {
+      "name": "scene_loader",
+      "exit_code": 0
+    },
+    {
+      "name": "grasp",
+      "exit_code": 2
+    }
+  ],
+  "error": "grasp failed; inspect /home/ros/.q2q/runs/step3_20261024_123053/grasp.log, no retry issued"
+}

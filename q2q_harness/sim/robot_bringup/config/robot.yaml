@@ -1,0 +1,70 @@
+# robot.yaml —— 机器人本体配置（唯一真源）
+#
+# 2026-10-23：平台从 Husky A200 换成 **Clearpath Jackal (j100)**。
+# 换的理由是量化过的：车头到抓取目标的距离 ≈ 半个车长。
+#   Husky 车长 0.987 m → 箱心恒在 base 前方 0.545 m，超出实测可达域 0.45–0.55，抓取差 5 cm 够不着；
+#   Jackal 车长 0.508 m → 箱心约 0.30 m，落在可达域内还留 ~0.15 m 余量。
+# 旧配置保留在 robot_a200.retired.yaml，不是删除。
+#
+# 语义：这份文件描述「机器人长什么样、挂在哪个命名空间、装哪些传感器/机械臂」。
+#       bringup.launch.py 每次启动把它同步到 ~/.q2q/setup/...，再由 clearpath_generator_* 生成
+#       URDF/SRDF/launch/参数。改机器人只改这里，启动时保持 generate:=true。
+#
+# 两个刻意的决定：
+#   1. **命名空间继续用 a200_0000**。换掉它要同步改 move_group 重映射、相机参数、十几个脚本和文档，
+#      风险远大于收益；平台换了但命名空间沿用，属于已知的命名不一致，写在这里留痕。
+#   2. **激光挂 front_0_mount**（j100 基础模型自带），不引 top_plate 附件——少一个可能不存在的挂载点。
+
+serial_number: j100-0000
+version: 0
+
+system:
+  hosts:
+    - hostname: cpr-j100-0000
+      ip: 192.168.131.1
+  ros2:
+    namespace: a200_0000
+
+platform:
+  attachments:
+    - name: front_fender
+      type: j100.fender
+    - name: rear_fender
+      type: j100.fender
+      rpy: [0.0, 0.0, 3.1415]
+
+# 机械臂：Gen3 Lite + 2F Lite 夹爪（与 Husky 时代一致，装在 j100 的 default_mount 上）
+manipulators:
+  arms:
+    - model: kinova_gen3_lite
+      parent: default_mount
+      xyz: [0.0, 0.0, 0.0]
+      rpy: [0.0, 0.0, 0.0]
+      ip: 192.168.131.40
+      port: 10000
+      poses:
+        - name: custom
+          joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      gripper:
+        model: kinova_2f_lite
+        xyz: [0.0, 0.0, 0.0]
+        rpy: [0.0, 0.0, 0.0]
+        poses:
+          - name: custom
+            joints: [0.0]
+
+sensors:
+  lidar2d:
+    - model: hokuyo_ust
+      urdf_enabled: true
+      launch_enabled: true
+      parent: front_0_mount
+      xyz: [0.0, 0.0, 0.0]
+      rpy: [0.0, 0.0, 0.0]
+      ros_parameters:
+        urg_node:
+          laser_frame_id: lidar2d_0_laser
+          ip_address: 192.168.131.20
+          ip_port: 10940
+          angle_min: -3.141592653589793
+          angle_max: 3.141592653589793

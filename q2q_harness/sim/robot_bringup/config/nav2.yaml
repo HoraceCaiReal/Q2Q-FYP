@@ -1,0 +1,341 @@
+# nav2.yaml —— 第 3 步 Nav2 参数（唯一真源）
+#
+# 顶层键 = 节点名（amcl / bt_navigator / ...），**绝不能在这里写 a200_0000**。
+# nav2_bringup 的 RewrittenYaml(root_key=namespace) 会自己再包一层命名空间根；
+# 我们再写一层就成了 a200_0000: a200_0000: amcl，整棵树对不上节点名，
+# ROS 静默忽略整份文件（现象：节点参数全是代码默认值，DWB 报 No critics defined）。
+# 对照：Clearpath 的 control.yaml 顶层写 a200_0000，是因为它直接当 parameters 传、
+# 不走 RewrittenYaml —— 两套机制，别混。
+#
+# 带 ★ 的是和 TurtleBot 默认值不一样的地方，一共 7 处，以后维护只需要盯这些。
+# 其余是 Nav2 必需的骨架参数（不写就报参数缺失）。
+# 这是参数文件不是代码，行数不按 80 行上限算。
+#
+# 四个已敲定的接口（docs/decisions/2026-10-20-第3步导航方案.md 第 4 节）：
+#   1. 激光观测源：相对名 sensors/lidar2d_0/scan；local=voxel_layer，global=obstacle_layer
+#   2. 地图文件：robot_worlds/maps/q2q_warehouse.yaml（由 launch 传进来）
+#   3. goal 容差：xy 0.25 m / yaw 0.25 rad
+#   4. 停稳判据（本文件不实现，属任务层）：0.02 m/s + 0.05 rad/s 持续 0.5 s
+
+amcl:
+  ros__parameters:
+    use_sim_time: True
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: "base_footprint"
+    global_frame_id: "map"
+    odom_frame_id: "odom"
+    scan_topic: sensors/lidar2d_0/scan   # ★ 相对名，自动补 /a200_0000（写 /scan 会一直收不到数据）
+    laser_model_type: "likelihood_field"
+    laser_max_range: 100.0
+    laser_min_range: -1.0
+    laser_likelihood_max_dist: 2.0
+    max_beams: 60
+    min_particles: 500
+    max_particles: 2000
+    pf_err: 0.05
+    pf_z: 0.99
+    resample_interval: 1
+    robot_model_type: "nav2_amcl::DifferentialMotionModel"
+    save_pose_rate: 0.5
+    sigma_hit: 0.2
+    z_hit: 0.5
+    z_max: 0.05
+    z_rand: 0.5
+    z_short: 0.05
+    do_beamskip: false
+    update_min_a: 0.2
+    update_min_d: 0.25
+    transform_tolerance: 1.0
+    tf_broadcast: true
+    set_initial_pose: True                # ★ 直接从出生点起，省掉 RViz 手动 2D Pose Estimate
+    initial_pose.x: 0.0                   # ★ 若 amcl 报「参数未声明」，删掉这 5 行，
+    initial_pose.y: 0.0                   #    改用 ros2 topic pub .../initialpose 发一次
+    initial_pose.z: 0.0
+    initial_pose.yaw: 0.0
+
+bt_navigator:
+  ros__parameters:
+    use_sim_time: True
+    global_frame: map
+    robot_base_frame: base_footprint      # ★ 默认 base_link；我们 TF 根是 base_footprint
+    odom_topic: ground_truth/odom         # 仿真物理真值；platform/odom 保留为轮编码器估计
+    bt_loop_duration: 100              # ms；VM 上不以 100 Hz 忙等 BT
+    default_server_timeout: 2000       # ms；等待动作确认，不是整段导航执行超时
+    wait_for_service_timeout: 10000
+    # ★ 行为树换成「只重规划 + 跟踪」的简化版（2026-10-22 实测）：
+    #   默认的 navigate_to_pose_w_replanning_and_recovery.xml 在收尾时会调
+    #   Spin / BackUp / Wait 三个恢复动作，而 behavior_server 反复报
+    #   `Received a preemption request for spin, however feature is currently not implemented`，
+    #   结果是「车已经到了目标 0.233 m（判据 0.25 m 内），动作却回 ABORTED」。
+    #   这份树没有恢复节点，先把「规划 + 跟踪 + 到位」这条路验清楚；
+    #   恢复行为以后再单独调（属于第 6/7 步的鲁棒性工作）。
+    default_nav_to_pose_bt_xml:
+      "/opt/ros/humble/share/nav2_bt_navigator/behavior_trees/navigate_w_replanning_time.xml"
+    # Humble 没有内置默认插件表（头文件里没有 plugins_list.hpp），这张表必须写全，
+    # 少一个就报 "Could not load library"，导航在启动阶段直接失败。
+    plugin_lib_names:
+      - nav2_compute_path_to_pose_action_bt_node
+      - nav2_compute_path_through_poses_action_bt_node
+      - nav2_smooth_path_action_bt_node
+      - nav2_follow_path_action_bt_node
+      - nav2_spin_action_bt_node
+      - nav2_wait_action_bt_node
+      - nav2_assisted_teleop_action_bt_node
+      - nav2_back_up_action_bt_node
+      - nav2_drive_on_heading_bt_node
+      - nav2_clear_costmap_service_bt_node
+      - nav2_is_stuck_condition_bt_node
+      - nav2_goal_reached_condition_bt_node
+      - nav2_goal_updated_condition_bt_node
+      - nav2_globally_updated_goal_condition_bt_node
+      - nav2_is_path_valid_condition_bt_node
+      - nav2_initial_pose_received_condition_bt_node
+      - nav2_reinitialize_global_localization_service_bt_node
+      - nav2_rate_controller_bt_node
+      - nav2_distance_controller_bt_node
+      - nav2_speed_controller_bt_node
+      - nav2_truncate_path_action_bt_node
+      - nav2_truncate_path_local_action_bt_node
+      - nav2_goal_updater_node_bt_node
+      - nav2_recovery_node_bt_node
+      - nav2_pipeline_sequence_bt_node
+      - nav2_round_robin_node_bt_node
+      - nav2_transform_available_condition_bt_node
+      - nav2_time_expired_condition_bt_node
+      - nav2_path_expiring_timer_condition
+      - nav2_distance_traveled_condition_bt_node
+      - nav2_single_trigger_bt_node
+      - nav2_goal_updated_controller_bt_node
+      - nav2_is_battery_low_condition_bt_node
+      - nav2_navigate_through_poses_action_bt_node
+      - nav2_navigate_to_pose_action_bt_node
+      - nav2_remove_passed_goals_action_bt_node
+      - nav2_planner_selector_bt_node
+      - nav2_controller_selector_bt_node
+      - nav2_goal_checker_selector_bt_node
+      - nav2_controller_cancel_bt_node
+      - nav2_path_longer_on_approach_bt_node
+      - nav2_wait_cancel_bt_node
+      - nav2_spin_cancel_bt_node
+      - nav2_back_up_cancel_bt_node
+      - nav2_assisted_teleop_cancel_bt_node
+      - nav2_drive_on_heading_cancel_bt_node
+      - nav2_is_battery_charging_condition_bt_node
+
+# RPP explicitly rotates toward paths behind the robot; polygon collision checks stay enabled.
+controller_server:
+  ros__parameters:
+    use_sim_time: true
+    controller_frequency: 5.0
+    min_x_velocity_threshold: 0.001
+    min_y_velocity_threshold: 0.5
+    min_theta_velocity_threshold: 0.001
+    failure_tolerance: 0.3
+    progress_checker_plugin: progress_checker
+    goal_checker_plugins:
+    - general_goal_checker
+    controller_plugins:
+    - FollowPath
+    progress_checker:
+      plugin: nav2_controller::SimpleProgressChecker
+      required_movement_radius: 0.5
+      movement_time_allowance: 25.0
+    general_goal_checker:
+      stateful: true
+      plugin: nav2_controller::SimpleGoalChecker
+      xy_goal_tolerance: 0.15
+      yaw_goal_tolerance: 0.15
+    FollowPath:
+      plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+      desired_linear_vel: 0.35
+      lookahead_dist: 0.6
+      min_lookahead_dist: 0.3
+      max_lookahead_dist: 0.9
+      lookahead_time: 1.5
+      rotate_to_heading_angular_vel: 0.7
+      transform_tolerance: 0.3
+      use_velocity_scaled_lookahead_dist: false
+      min_approach_linear_velocity: 0.05
+      approach_velocity_scaling_dist: 0.6
+      use_collision_detection: true
+      max_allowed_time_to_collision_up_to_carrot: 1.5
+      use_regulated_linear_velocity_scaling: true
+      use_cost_regulated_linear_velocity_scaling: true
+      cost_scaling_dist: 0.6
+      cost_scaling_gain: 1.0
+      inflation_cost_scaling_factor: 3.0
+      regulated_linear_scaling_min_radius: 0.9
+      regulated_linear_scaling_min_speed: 0.08
+      use_rotate_to_heading: true
+      rotate_to_heading_min_angle: 0.5
+      max_angular_accel: 1.0
+      allow_reversing: false
+      max_robot_pose_search_dist: 10.0
+      use_interpolation: true
+
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      use_sim_time: True
+      update_frequency: 5.0
+      publish_frequency: 2.0
+      global_frame: odom
+      robot_base_frame: base_footprint    # ★
+      rolling_window: true
+      width: 3
+      height: 3
+      resolution: 0.05
+      footprint: "[[0.26, 0.215], [0.26, -0.215], [-0.26, -0.215], [-0.26, 0.215]]" # Jackal body/wheels, stowed arm
+      plugins: ["voxel_layer", "inflation_layer"]
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.55
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: True
+        publish_voxel_map: False
+        origin_z: 0.0
+        z_resolution: 0.05
+        z_voxels: 16
+        max_obstacle_height: 2.0
+        mark_threshold: 0
+        observation_sources: scan
+        scan:
+          topic: sensors/lidar2d_0/scan    # ★ 接口 1
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0          # 接口 1
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5          # 接口 1
+          obstacle_min_range: 0.0
+      always_send_full_costmap: True
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      use_sim_time: True
+      update_frequency: 1.0
+      publish_frequency: 1.0
+      global_frame: map
+      robot_base_frame: base_footprint    # ★
+      resolution: 0.05
+      footprint: "[[0.26, 0.215], [0.26, -0.215], [-0.26, -0.215], [-0.26, 0.215]]" # Jackal body/wheels, stowed arm
+      track_unknown_space: true
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: True
+        observation_sources: scan
+        scan:
+          topic: sensors/lidar2d_0/scan    # ★ 接口 1
+          max_obstacle_height: 2.0
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.0
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: True
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.55
+      always_send_full_costmap: True
+
+map_server:
+  ros__parameters:
+    use_sim_time: True
+    yaml_filename: ""                    # 由 nav2.launch.py 的 map:= 传进来
+
+map_saver:
+  ros__parameters:
+    use_sim_time: True
+    save_map_timeout: 5.0
+    free_thresh_default: 0.25
+    occupied_thresh_default: 0.65
+    map_subscribe_transient_local: True
+
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 20.0
+    use_sim_time: True
+    planner_plugins: ["GridBased"]
+    GridBased:
+      plugin: "nav2_navfn_planner/NavfnPlanner"
+      tolerance: 0.5
+      use_astar: false
+      allow_unknown: true
+
+smoother_server:
+  ros__parameters:
+    use_sim_time: True
+    smoother_plugins: ["simple_smoother"]
+    simple_smoother:
+      plugin: "nav2_smoother::SimpleSmoother"
+      tolerance: 1.0e-10
+      max_its: 1000
+      do_refinement: True
+
+behavior_server:
+  ros__parameters:
+    use_sim_time: True
+    costmap_topic: local_costmap/costmap_raw
+    footprint_topic: local_costmap/published_footprint
+    cycle_frequency: 10.0
+    behavior_plugins: ["spin", "backup", "drive_on_heading", "wait"]
+    spin:
+      plugin: "nav2_behaviors/Spin"
+    backup:
+      plugin: "nav2_behaviors/BackUp"
+    drive_on_heading:
+      plugin: "nav2_behaviors/DriveOnHeading"
+    wait:
+      plugin: "nav2_behaviors/Wait"
+    global_frame: odom
+    robot_base_frame: base_footprint      # ★
+    transform_tolerance: 0.1
+    simulate_ahead_time: 2.0
+    max_rotational_vel: 1.0
+    min_rotational_vel: 0.4
+    rotational_acc_lim: 1.0
+
+waypoint_follower:
+  ros__parameters:
+    use_sim_time: True
+    loop_rate: 20
+    stop_on_failure: false
+    waypoint_task_executor_plugin: "wait_at_waypoint"
+    wait_at_waypoint:
+      plugin: "nav2_waypoint_follower::WaitAtWaypoint"
+      enabled: True
+      waypoint_pause_duration: 200
+
+velocity_smoother:
+  ros__parameters:
+    use_sim_time: True
+    smoothing_frequency: 20.0
+    scale_velocities: False
+    feedback: "OPEN_LOOP"
+    max_velocity: [0.5, 0.0, 1.0]         # ★ 和 DWB 的上限对齐，否则会被二次限速
+    min_velocity: [-0.5, 0.0, -1.0]       # ★
+    max_accel: [1.0, 0.0, 1.0]            # ★
+    max_decel: [-1.0, 0.0, -1.0]          # ★
+    odom_topic: ground_truth/odom
+    odom_duration: 0.1
+    deadband_velocity: [0.0, 0.0, 0.0]
+    velocity_timeout: 1.0
+
+robot_state_publisher:
+  ros__parameters:
+    use_sim_time: True
+

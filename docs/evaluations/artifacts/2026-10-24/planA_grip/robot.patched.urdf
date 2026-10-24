@@ -1,0 +1,889 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="j100-0000">
+  <material name="clearpath_dark_grey">
+    <color rgba="0.2 0.2 0.2 1.0" />
+  </material>
+  <material name="clearpath_medium_grey">
+    <color rgba="0.6 0.6 0.6 1.0" />
+  </material>
+  <material name="clearpath_light_grey">
+    <color rgba="0.8 0.8 0.8 1.0" />
+  </material>
+  <material name="clearpath_yellow">
+    <color rgba="0.8 0.8 0.0 1.0" />
+  </material>
+  <material name="clearpath_black">
+    <color rgba="0.15 0.15 0.15 1.0" />
+  </material>
+  <material name="clearpath_white">
+    <color rgba="1.0 1.0 1.0 1.0" />
+  </material>
+  <material name="clearpath_red">
+    <color rgba="1.0 0.0 0.0 1.0" />
+  </material>
+  <material name="clearpath_aluminum">
+    <color rgba="0.5 0.5 0.5 1" />
+  </material>
+  <material name="clearpath_plastic">
+    <color rgba="0.1 0.1 0.1   1" />
+  </material>
+  <link name="front_left_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://clearpath_platform_description/meshes/j100/j100_wheel.stl" />
+      </geometry>
+      <material name="clearpath_black" />
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.04" radius="0.098" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <mass value="0.477" />
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013" />
+    </inertial>
+  </link>
+  <gazebo reference="front_left_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5">0.5</mu1>
+    <mu2 value="0.5">1.0</mu2>
+    <fdir1 value="1 0 0">0 0 1</fdir1>
+  </gazebo>
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="chassis_link" />
+    <child link="front_left_wheel_link" />
+    <origin rpy="0 0 0" xyz="0.131 0.187795 0.0345" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <link name="front_right_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://clearpath_platform_description/meshes/j100/j100_wheel.stl" />
+      </geometry>
+      <material name="clearpath_black" />
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.04" radius="0.098" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <mass value="0.477" />
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013" />
+    </inertial>
+  </link>
+  <gazebo reference="front_right_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5">0.5</mu1>
+    <mu2 value="0.5">1.0</mu2>
+    <fdir1 value="1 0 0">0 0 1</fdir1>
+  </gazebo>
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="chassis_link" />
+    <child link="front_right_wheel_link" />
+    <origin rpy="0 0 0" xyz="0.131 -0.187795 0.0345" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <link name="rear_left_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://clearpath_platform_description/meshes/j100/j100_wheel.stl" />
+      </geometry>
+      <material name="clearpath_black" />
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.04" radius="0.098" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <mass value="0.477" />
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013" />
+    </inertial>
+  </link>
+  <gazebo reference="rear_left_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5">0.5</mu1>
+    <mu2 value="0.5">1.0</mu2>
+    <fdir1 value="1 0 0">0 0 1</fdir1>
+  </gazebo>
+  <joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="chassis_link" />
+    <child link="rear_left_wheel_link" />
+    <origin rpy="0 0 0" xyz="-0.131 0.187795 0.0345" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <link name="rear_right_wheel_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://clearpath_platform_description/meshes/j100/j100_wheel.stl" />
+      </geometry>
+      <material name="clearpath_black" />
+    </visual>
+    <collision>
+      <origin rpy="1.5707963267948966 0 0" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.04" radius="0.098" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <mass value="0.477" />
+      <inertia ixx="0.0013" ixy="0" ixz="0" iyy="0.0024" iyz="0" izz="0.0013" />
+    </inertial>
+  </link>
+  <gazebo reference="rear_right_wheel_link">
+    <material>Gazebo/DarkGrey</material>
+    <selfCollide>false</selfCollide>
+    <mu1 value="0.5">0.5</mu1>
+    <mu2 value="0.5">1.0</mu2>
+    <fdir1 value="1 0 0">0 0 1</fdir1>
+  </gazebo>
+  <joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="chassis_link" />
+    <child link="rear_right_wheel_link" />
+    <origin rpy="0 0 0" xyz="-0.131 -0.187795 0.0345" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <gazebo>
+    <plugin filename="libignition-gazebo-wheel-slip-system.so" name="ignition::gazebo::systems::WheelSlip">
+      <wheel link_name="front_left_wheel_link">
+        <slip_compliance_lateral>0.5</slip_compliance_lateral>
+        <slip_compliance_longitudinal>0.01</slip_compliance_longitudinal>
+        <wheel_normal_force>40</wheel_normal_force>
+        <wheel_radius>0.098</wheel_radius>
+      </wheel>
+      <wheel link_name="front_right_wheel_link">
+        <slip_compliance_lateral>0.5</slip_compliance_lateral>
+        <slip_compliance_longitudinal>0.01</slip_compliance_longitudinal>
+        <wheel_normal_force>40</wheel_normal_force>
+        <wheel_radius>0.098</wheel_radius>
+      </wheel>
+      <wheel link_name="rear_left_wheel_link">
+        <slip_compliance_lateral>0.5</slip_compliance_lateral>
+        <slip_compliance_longitudinal>0.01</slip_compliance_longitudinal>
+        <wheel_normal_force>40</wheel_normal_force>
+        <wheel_radius>0.098</wheel_radius>
+      </wheel>
+      <wheel link_name="rear_right_wheel_link">
+        <slip_compliance_lateral>0.5</slip_compliance_lateral>
+        <slip_compliance_longitudinal>0.01</slip_compliance_longitudinal>
+        <wheel_normal_force>40</wheel_normal_force>
+        <wheel_radius>0.098</wheel_radius>
+      </wheel>
+    </plugin>
+  </gazebo>
+  <link name="base_link" />
+  <joint name="base_link_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0" />
+    <parent link="base_link" />
+    <child link="chassis_link" />
+  </joint>
+  <link name="chassis_link">
+    <visual>
+      <origin rpy="1.5707963267948966 0 1.5707963267948966" xyz="0 0 -0.0655" />
+      <geometry>
+        <mesh filename="package://clearpath_platform_description/meshes/j100/j100_base.stl" />
+      </geometry>
+      <material name="clearpath_dark_grey" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.092" />
+      <geometry>
+        <box size="0.42 0.31 0.184" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.012  0.002 0.067" />
+      <mass value="16.523" />
+      <inertia ixx="0.3136" ixy="-0.0008" ixz="0.0164" iyy="0.3922" iyz="-0.0009" izz="0.4485" />
+    </inertial>
+  </link>
+  <link name="imu_0_link">
+    <inertial>
+      <mass value="0.001" />
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09" />
+    </inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="chassis_link" />
+    <child link="imu_0_link" />
+  </joint>
+  <gazebo reference="imu_0_link">
+    <sensor name="imu_0" type="imu">
+      <always_on>true</always_on>
+      <update_rate>50</update_rate>
+      <visualize>true</visualize>
+      <ignition_frame_id>imu_0_link</ignition_frame_id>
+      <topic>a200_0000/sensors/imu_0/data_raw</topic>
+    </sensor>
+  </gazebo>
+  <link name="gps_0_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.016" radius="0.026" />
+      </geometry>
+      <origin xyz="0 0 0.008" />
+      <material name="clearpath_black" />
+    </visual>
+  </link>
+  <joint name="navsat_joint" type="fixed">
+    <parent link="chassis_link" />
+    <child link="gps_0_link" />
+    <origin xyz="-0.180 0.126 0.1815" />
+  </joint>
+  <gazebo reference="gps_0_link">
+    <sensor name="gps_0" type="navsat">
+      <always_on>1</always_on>
+      <update_rate>10</update_rate>
+      <ignition_frame_id>gps_0_link</ignition_frame_id>
+      <topic>a200_0000/sensors/gps_0/navsat</topic>
+    </sensor>
+  </gazebo>
+  <link name="default_mount" />
+  <joint name="default_mount_joint" type="fixed">
+    <parent link="chassis_link" />
+    <child link="default_mount" />
+    <origin xyz="0 0 0.184" />
+  </joint>
+  <link name="rear_0_mount" />
+  <joint name="rear_0_mount_joint" type="fixed">
+    <parent link="default_mount" />
+    <child link="rear_0_mount" />
+    <origin xyz="-0.12 0 0" />
+  </joint>
+  <link name="front_0_mount" />
+  <joint name="front_0_mount_joint" type="fixed">
+    <parent link="default_mount" />
+    <child link="front_0_mount" />
+    <origin xyz="0.12 0 0" />
+  </joint>
+  <gazebo>
+    <plugin filename="libign_ros2_control-system.so" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <parameters>/home/ros/.q2q/setup/a200_kinova/platform/config/control.yaml</parameters>
+      <ros>
+        <remapping>~/odom:=platform/odom</remapping>
+        <remapping>~/cmd_vel_unstamped:=platform/cmd_vel_unstamped</remapping>
+        <remapping>/tf:=tf</remapping>
+        <remapping>/tf_static:=tf_static</remapping>
+        <remapping>/diagnostics:=diagnostics</remapping>
+        <remapping>/dynamic_joint_states:=platform/dynamic_joint_states</remapping>
+        <remapping>joint_states:=platform/joint_states</remapping>
+        <remapping>~/reference:=platform/cmd_vel</remapping>
+        <remapping>~/odometry:=platform/odom</remapping>
+        <namespace>a200_0000</namespace>
+      </ros>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libignition-gazebo-pose-publisher-system.so" name="ignition::gazebo::systems::PosePublisher">
+      <publish_link_pose>true</publish_link_pose>
+      <publish_nested_model_pose>true</publish_nested_model_pose>
+      <use_pose_vector_msg>true</use_pose_vector_msg>
+      <update_frequency>50</update_frequency>
+    </plugin>
+  </gazebo>
+  <ros2_control name="j100_hardware" type="system">
+    <hardware>
+      <plugin>ign_ros2_control/IgnitionSystem</plugin>
+    </hardware>
+    <joint name="front_left_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="rear_left_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="front_right_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="rear_right_wheel_joint">
+      <command_interface name="velocity" />
+      <state_interface name="position" />
+      <state_interface name="velocity" />
+    </joint>
+  </ros2_control>
+  
+  
+  <link name="front_fender_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://clearpath_platform_description/meshes/j100/attachments/default_fender.stl" />
+      </geometry>
+      <material name="clearpath_yellow" />
+    </visual>
+  </link>
+  
+  <joint name="front_fender_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
+    <parent link="base_link" />
+    <child link="front_fender_link" />
+  </joint>
+  
+  <link name="rear_fender_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://clearpath_platform_description/meshes/j100/attachments/default_fender.stl" />
+      </geometry>
+      <material name="clearpath_yellow" />
+    </visual>
+  </link>
+  
+  <joint name="rear_fender_joint" type="fixed">
+    <origin rpy="0.0 0.0 3.1415" xyz="0.0 0.0 0.0" />
+    <parent link="base_link" />
+    <child link="rear_fender_link" />
+  </joint>
+  
+  
+  
+  <link name="lidar2d_0_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        
+        <mesh filename="package://clearpath_sensors_description/meshes/hokuyo_ust.stl" />
+      </geometry>
+      <material name="clearpath_dark_grey" />
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.0 0.0 0.04" />
+      <geometry>
+        <box size="0.06 0.06 0.08" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="lidar2d_0_laser">
+    <inertial>
+      <mass value="1.1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.00307156543804" ixy="0.0" ixz="0.0" iyy="0.0031284904152700005" iyz="0.0" izz="0.00196432421427" />
+    </inertial>
+  </link>
+  <joint name="lidar2d_0_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
+    <parent link="front_0_mount" />
+    <child link="lidar2d_0_link" />
+  </joint>
+  <joint name="lidar2d_0_laser_joint" type="fixed">
+    
+    <origin rpy="0 0 0" xyz="0 0 0.0474" />
+    <parent link="lidar2d_0_link" />
+    <child link="lidar2d_0_laser" />
+  </joint>
+  <gazebo reference="lidar2d_0_laser">
+    <sensor name="lidar2d_0" type="gpu_lidar">
+      <update_rate>15.0</update_rate>
+      <visualize>true</visualize>
+      <always_on>false</always_on>
+      <ignition_frame_id>lidar2d_0_laser</ignition_frame_id>
+      <topic>a200_0000/sensors/lidar2d_0/scan</topic>
+      <lidar>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.141592653589793</min_angle>
+            <max_angle>3.141592653589793</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>1</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.05</min>
+          <max>25.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </lidar>
+    </sensor>
+  </gazebo>
+  
+  
+  <joint name="arm_0_base_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
+    <parent link="default_mount" />
+    <child link="arm_0_base_link" />
+  </joint>
+  <link name="arm_0_base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.00244324 0.00015573 0.08616742" />
+      <mass value="1.14608471" />
+      <inertia ixx="0.00335854" ixy="3.9E-07" ixz="0.00010989" iyy="0.003311" iyz="1.91E-06" izz="0.00077158" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_base_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  
+  <link name="arm_0_shoulder_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="2.477E-05 0.02213531 0.09937686" />
+      <mass value="0.95974404" />
+      <inertia ixx="0.00165947" ixy="2E-08" ixz="3.6E-07" iyy="0.00140355" iyz="0.00034927" izz="0.00089493" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/shoulder_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/shoulder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_shoulder_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  <joint name="arm_0_joint_1" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.12825" />
+    <parent link="arm_0_base_link" />
+    <child link="arm_0_shoulder_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" lower="-2.69" upper="2.69" velocity="1.6" />
+  </joint>
+  
+  <link name="arm_0_arm_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.02998299 0.21154808 0.0453031" />
+      <mass value="1.17756164" />
+      <inertia ixx="0.01149277" ixy="1E-06" ixz="1.6E-07" iyy="0.00102851" iyz="0.00140765" izz="0.01133492" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/arm_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_arm_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  <joint name="arm_0_joint_2" type="revolute">
+    <origin rpy="1.5708 0 0" xyz="0 -0.03 0.115" />
+    <parent link="arm_0_shoulder_link" />
+    <child link="arm_0_arm_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="14" lower="-2.69" upper="2.69" velocity="1.6" />
+  </joint>
+  
+  <link name="arm_0_forearm_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0301559 0.09502206 0.0073555" />
+      <mass value="0.59767669" />
+      <inertia ixx="0.00163256" ixy="7.11E-06" ixz="1.54E-06" iyy="0.00029798" iyz="9.587E-05" izz="0.00169091" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/forearm_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/forearm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_forearm_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  <joint name="arm_0_joint_3" type="revolute">
+    <origin rpy="-3.1416 0 0" xyz="0 0.28 0" />
+    <parent link="arm_0_arm_link" />
+    <child link="arm_0_forearm_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" lower="-2.69" upper="2.69" velocity="1.6" />
+  </joint>
+  
+  <link name="arm_0_lower_wrist_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.00575149 0.01000443 0.08719207" />
+      <mass value="0.52693412" />
+      <inertia ixx="0.00069098" ixy="2.4E-07" ixz="0.00016483" iyy="0.00078519" iyz="7.4E-07" izz="0.00034115" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/lower_wrist_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/lower_wrist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_lower_wrist_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  <joint name="arm_0_joint_4" type="revolute">
+    <origin rpy="1.5708 0 0" xyz="0 -0.14 0.02" />
+    <parent link="arm_0_forearm_link" />
+    <child link="arm_0_lower_wrist_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="7" lower="-2.59" upper="2.59" velocity="1.6" />
+  </joint>
+  
+  <link name="arm_0_upper_wrist_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.08056517 0.00980409 0.01872799" />
+      <mass value="0.58097325" />
+      <inertia ixx="0.00021268" ixy="5.21E-06" ixz="2.91E-06" iyy="0.00106371" iyz="1.1E-07" izz="0.00108465" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/upper_wrist_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/arms/gen3_lite/6dof/meshes/upper_wrist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_upper_wrist_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  <joint name="arm_0_joint_5" type="revolute">
+    <origin rpy="0 1.5708 0" xyz="0.0285 0 0.105" />
+    <parent link="arm_0_lower_wrist_link" />
+    <child link="arm_0_upper_wrist_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="7" lower="-2.57" upper="2.57" velocity="1.6" />
+  </joint>
+  
+  <link name="arm_0_end_effector_link" />
+  <joint name="arm_0_joint_6" type="revolute">
+    <origin rpy="0 -1.5708 0" xyz="-0.105 0 0.0285" />
+    <parent link="arm_0_upper_wrist_link" />
+    <child link="arm_0_end_effector_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="7" lower="-2.59" upper="2.59" velocity="3.2" />
+  </joint>
+  <ros2_control name="arm_0_hardware" type="system">
+    <hardware>
+      <plugin>ign_ros2_control/IgnitionSystem</plugin>
+    </hardware>
+    <joint name="arm_0_joint_1">
+      <command_interface name="position">
+        <param name="min">-2.69</param>
+        <param name="max">2.69</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="arm_0_joint_2">
+      <command_interface name="position">
+        <param name="min">-2.69</param>
+        <param name="max">2.36</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="arm_0_joint_3">
+      <command_interface name="position">
+        <param name="min">-2.69</param>
+        <param name="max">2.69</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="arm_0_joint_4">
+      <command_interface name="position">
+        <param name="min">-2.59</param>
+        <param name="max">2.59</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="arm_0_joint_5">
+      <command_interface name="position">
+        <param name="min">-2.57</param>
+        <param name="max">2.57</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+    <joint name="arm_0_joint_6">
+      <command_interface name="position">
+        <param name="min">-2.59</param>
+        <param name="max">2.59</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+      <state_interface name="effort" />
+    </joint>
+  </ros2_control>
+  
+  <joint name="arm_0_gripper_gripper_base_joint" type="fixed">
+    <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
+    <parent link="arm_0_end_effector_link" />
+    <child link="arm_0_gripper_gripper_base_link" />
+  </joint>
+  <link name="arm_0_gripper_gripper_base_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="4.03E-06 1.08E-05 0.041397" />
+      <mass value="0.1395" />
+      <inertia ixx="0.00011614" ixy="1E-08" ixz="4E-08" iyy="0.00010327" iyz="0" izz="9.707E-05" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/gripper_base_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/gripper_base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_gripper_gripper_base_link">
+    <material>Kortex/Gray</material>
+  </gazebo>
+  
+  <link name="arm_0_gripper_right_finger_prox_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.020257 0.0063483 6.991E-05" />
+      <mass value="0.018385" />
+      <inertia ixx="2.29E-06" ixy="1.43E-06" ixz="0" iyy="4.56E-06" iyz="0" izz="4.77E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/right_finger_prox_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/right_finger_prox_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_gripper_right_finger_prox_link">
+    <material>Kortex/Gray</material>
+  <mu1>2.0</mu1><mu2>2.0</mu2></gazebo>
+  
+  <joint name="arm_0_gripper_right_finger_bottom_joint" type="revolute">
+    <origin rpy="1.571 0.611 1.571" xyz="0 -0.030501 0.070003" />
+    <parent link="arm_0_gripper_gripper_base_link" />
+    <child link="arm_0_gripper_right_finger_prox_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="10" lower="-0.1" upper="0.96" velocity="0.6" />
+  <dynamics damping="0.1" friction="0.0" /></joint>
+  
+  <link name="arm_0_gripper_right_finger_dist_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.018488 0.0011091 0" />
+      <mass value="0.010748" />
+      <inertia ixx="6.3E-07" ixy="3.2E-07" ixz="0" iyy="1.83E-06" iyz="0" izz="1.61E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/right_finger_dist_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0 0.055 0.525 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/right_finger_dist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_gripper_right_finger_dist_link">
+    <material>Kortex/Blue</material>
+  <mu1>2.0</mu1><mu2>2.0</mu2></gazebo>
+  <joint name="arm_0_gripper_right_finger_tip_joint" type="revolute">
+    <origin rpy="0.0 0.0 0.149" xyz="-0.045636 0.020423 0" />
+    <parent link="arm_0_gripper_right_finger_prox_link" />
+    <child link="arm_0_gripper_right_finger_dist_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="1000" lower="-0.649" upper="0.061" velocity="1000" />
+    
+    <mimic joint="arm_0_gripper_right_finger_bottom_joint" multiplier="-0.676" offset="0" />
+  <dynamics damping="0.1" friction="0.0" /></joint>
+  
+  <link name="arm_0_gripper_left_finger_prox_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.020257 0.0063483 6.99E-05" />
+      <mass value="0.018385" />
+      <inertia ixx="2.29E-06" ixy="1.43E-06" ixz="0" iyy="4.56E-06" iyz="0" izz="4.77E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/left_finger_prox_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.803 0.824 0.820 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/left_finger_prox_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_gripper_left_finger_prox_link">
+    <material>Kortex/Gray</material>
+  <mu1>2.0</mu1><mu2>2.0</mu2></gazebo>
+  <joint name="arm_0_gripper_left_finger_bottom_joint" type="revolute">
+    <origin rpy="-1.571 0.611 -1.571" xyz="0 0.0305 0.070003" />
+    <parent link="arm_0_gripper_gripper_base_link" />
+    <child link="arm_0_gripper_left_finger_prox_link" />
+    <axis xyz="0 0 1" />
+    <limit effort="10" lower="-0.1" upper="0.96" velocity="0.6" />
+    <mimic joint="arm_0_gripper_right_finger_bottom_joint" multiplier="1.0" offset="0.0" />
+  <dynamics damping="0.1" friction="0.0" /></joint>
+  
+  <link name="arm_0_gripper_left_finger_dist_link">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.018488 0.0011091 0" />
+      <mass value="0.010748" />
+      <inertia ixx="6.3E-07" ixy="3.2E-07" ixz="0" iyy="1.83E-06" iyz="0" izz="1.61E-06" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/left_finger_dist_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0 0.055 0.525 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <mesh filename="package://kortex_description/grippers/gen3_lite_2f/meshes/left_finger_dist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="arm_0_gripper_left_finger_dist_link">
+    <material>Kortex/Blue</material>
+  <mu1>2.0</mu1><mu2>2.0</mu2></gazebo>
+  <joint name="arm_0_gripper_left_finger_tip_joint" type="revolute">
+    <origin rpy="0.0 0.0 -0.149" xyz="-0.045636 -0.020423 6.9901E-05" />
+    <parent link="arm_0_gripper_left_finger_prox_link" />
+    <child link="arm_0_gripper_left_finger_dist_link" />
+    <axis xyz="0 0 -1" />
+    <limit effort="1000" lower="-0.649" upper="0.061" velocity="1000" />
+    
+    <mimic joint="arm_0_gripper_right_finger_bottom_joint" multiplier="-0.676" offset="0" />
+  <dynamics damping="0.1" friction="0.0" /></joint>
+  <ros2_control name="arm_0_gripper_hardware" type="system">
+    <hardware>
+      <plugin>ign_ros2_control/IgnitionSystem</plugin>
+    </hardware>
+    <joint name="arm_0_gripper_right_finger_bottom_joint">
+      <command_interface name="position" />
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity" />
+    </joint>
+    <joint name="arm_0_gripper_right_finger_tip_joint">
+      <param name="mimic">arm_0_gripper_right_finger_bottom_joint</param><param name="multiplier">-0.676</param></joint>
+    <joint name="arm_0_gripper_left_finger_bottom_joint">
+      <param name="mimic">arm_0_gripper_right_finger_bottom_joint</param><param name="multiplier">1.0</param></joint>
+    <joint name="arm_0_gripper_left_finger_tip_joint">
+      <param name="mimic">arm_0_gripper_right_finger_bottom_joint</param><param name="multiplier">-0.676</param></joint>
+  </ros2_control>
+  
+<link name="base_footprint" /><joint name="base_footprint_joint" type="fixed"><parent link="base_footprint" /><child link="base_link" /><origin xyz="0 0 0.0635" rpy="0 0 0" /></joint><gazebo><plugin filename="libignition-gazebo-odometry-publisher-system.so" name="ignition::gazebo::systems::OdometryPublisher"><odom_frame>odom</odom_frame><robot_base_frame>base_footprint</robot_base_frame><odom_publish_frequency>25</odom_publish_frequency><dimensions>2</dimensions><odom_topic>/model/a200_0000/robot/ground_truth_odom</odom_topic><tf_topic>/model/a200_0000/robot/ground_truth_tf</tf_topic></plugin></gazebo></robot>

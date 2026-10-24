@@ -1,0 +1,150 @@
+{
+  "episode": "step7_1024_200714",
+  "exit_code": 0,
+  "final": {
+    "state": "DONE",
+    "blocked_by": "done",
+    "x": -0.0417624623606871,
+    "late_events": 0,
+    "generation": 11,
+    "base_command_locked": false,
+    "canceled": false
+  },
+  "stack_profile": {
+    "pid": 19058,
+    "start_tick": "270801",
+    "run_dir": "/home/ros/.q2q/runs/step3_20261024_200713",
+    "command": [
+      "ros2",
+      "launch",
+      "robot_bringup",
+      "bringup.launch.py",
+      "gui:=false",
+      "world:=/home/ros/.q2q/runs/step3_20261024_200713/world.sdf",
+      "nav:=true",
+      "gz_verbose:=2"
+    ],
+    "middleware": "rmw_fastrtps_cpp",
+    "dds_profile": "/home/ros/.q2q/fastdds_udp.xml",
+    "kinematic_carry": true,
+    "gripper_collision": "mesh",
+    "position_gain": 0.1,
+    "gripper_mode": "mimic",
+    "world": "q2q_warehouse_grasp50",
+    "world_sha256": "c6616507aac8e16fde3ece9325b19adc4458ee4a671486ad5698934f40d5cdc1"
+  },
+  "grasp_mode": "suction_approx",
+  "transitions": [
+    {
+      "state": "IDLE",
+      "generation": 0,
+      "x": 0.0,
+      "nav": "NONE",
+      "locked": false,
+      "blocked_by": ""
+    },
+    {
+      "state": "NAV_TO_PICK",
+      "generation": 1,
+      "x": -0.0,
+      "nav": "ACTIVE",
+      "locked": false,
+      "blocked_by": "nav_started"
+    },
+    {
+      "state": "WAIT_STILL",
+      "generation": 2,
+      "x": 0.7204,
+      "nav": "SUCCEEDED",
+      "locked": false,
+      "blocked_by": "stopped_at_station"
+    },
+    {
+      "state": "DOCKING",
+      "generation": 3,
+      "x": 0.7204,
+      "nav": "SUCCEEDED",
+      "locked": false,
+      "blocked_by": "docking"
+    },
+    {
+      "state": "PICK_READY",
+      "generation": 4,
+      "x": 0.8756,
+      "nav": "SUCCEEDED",
+      "locked": true,
+      "blocked_by": "docked"
+    },
+    {
+      "state": "PICKING",
+      "generation": 5,
+      "x": 0.8756,
+      "nav": "SUCCEEDED",
+      "locked": true,
+      "blocked_by": "picking"
+    },
+    {
+      "state": "PICKED",
+      "generation": 6,
+      "x": 0.8756,
+      "nav": "SUCCEEDED",
+      "locked": true,
+      "blocked_by": "picked_hold"
+    },
+    {
+      "state": "STOWING",
+      "generation": 7,
+      "x": 0.8756,
+      "nav": "SUCCEEDED",
+      "locked": true,
+      "blocked_by": "stowing"
+    },
+    {
+      "state": "UNDOCKING",
+      "generation": 8,
+      "x": 0.8756,
+      "nav": "ACTIVE",
+      "locked": false,
+      "blocked_by": "undocking"
+    },
+    {
+      "state": "NAV_TO_PLACE",
+      "generation": 9,
+      "x": 0.6337,
+      "nav": "ACTIVE",
+      "locked": false,
+      "blocked_by": "nav_to_place"
+    },
+    {
+      "state": "PLACE_READY",
+      "generation": 10,
+      "x": -0.0418,
+      "nav": "SUCCEEDED",
+      "locked": true,
+      "blocked_by": "at_place"
+    },
+    {
+      "state": "DONE",
+      "generation": 11,
+      "x": -0.0418,
+      "nav": "SUCCEEDED",
+      "locked": false,
+      "blocked_by": "done"
+    }
+  ],
+  "record": "/home/ros/.q2q/records/step7_1024_200714/task_state.jsonl",
+  "delivery": {
+    "box_world": [
+      0.3792427241289192,
+      -0.11473181325915685,
+      0.02046074691849232
+    ],
+    "expected_xy": [
+      0.3556151041785859,
+      -0.0920865716922011
+    ],
+    "xy_error_m": 0.03272722704634734,
+    "stable_samples": 3
+  },
+  "passed": true
+}

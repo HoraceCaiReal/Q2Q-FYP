@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "success": {
+    "status": 4,
+    "code": 0,
+    "actual": [
+      0.19176570116350225,
+      -0.16511202204547215,
+      0.13782393872377646,
+      -0.01166579802194006,
+      0.08626081211313029,
+      -0.005727083330242142
+    ]
+  },
+  "concurrent_rejected": true,
+  "cancel": {
+    "status": 5,
+    "accepted": true,
+    "elapsed_wall_s": 1.72322487800011,
+    "motion_before_rad": 0.040780790890762,
+    "hold_drift_rad": 1.2095431769054699e-05
+  }
+}

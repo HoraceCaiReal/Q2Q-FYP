@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "state": "IDLE",
+  "nav_status": "CANCELED",
+  "base_stopped": true,
+  "base_command_locked": false,
+  "late_events": 0,
+  "x": 0.7576889270913287,
+  "y": 0.02950970569511006,
+  "speed": 0.0,
+  "yaw_rate": 0.0
+}

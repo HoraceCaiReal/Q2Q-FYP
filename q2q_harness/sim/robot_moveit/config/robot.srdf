@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 第 4 步：MoveIt 语义描述。只从 URDF 实测链推出，不抄别家机器人的 SRDF。
+     链：default_mount -> arm_0_base_link ->(j1..j6)-> arm_0_end_effector_link
+         -> arm_0_gripper_gripper_base_link -> right_finger_prox -> right_finger_dist
+     URDF 根是 base_footprint，所以没有 virtual_joint：规划坐标系就是 base_footprint。 -->
+<robot name="j100-0000">
+
+  <!-- 手臂：6 个转动关节的链，末端为 arm_0_end_effector_link（夹爪基座挂在它下面） -->
+  <group name="arm">
+    <chain base_link="arm_0_base_link" tip_link="arm_0_end_effector_link"/>
+  </group>
+
+  <!-- 夹爪：只有右指 bottom 被控制器驱动；另外 3 个是 mimic，见下面 passive_joint。
+       把 mimic 放进 group 会让 IK 与轨迹校验无解，所以只能单关节成组。 -->
+  <group name="gripper">
+    <joint name="arm_0_gripper_right_finger_bottom_joint"/>
+  </group>
+
+  <end_effector name="gripper_eef" parent_link="arm_0_end_effector_link"
+                group="gripper" parent_group="arm"/>
+
+  <!-- mimic 关节：URDF 里从属右指 bottom。它们不在 joint_states 里，
+       MoveIt 只能把它们当被动关节，规划时按当前值带上，不会主动驱动。 -->
+  <passive_joint name="arm_0_gripper_left_finger_bottom_joint"/>
+  <passive_joint name="arm_0_gripper_right_finger_tip_joint"/>
+  <passive_joint name="arm_0_gripper_left_finger_tip_joint"/>
+
+  <!-- 起始姿态：2026-10-22 实测 joint_states 全为 0，直接取零位 -->
+  <group_state name="zero" group="arm">
+    <joint name="arm_0_joint_1" value="0"/>
+    <joint name="arm_0_joint_2" value="0"/>
+    <joint name="arm_0_joint_3" value="0"/>
+    <joint name="arm_0_joint_4" value="0"/>
+    <joint name="arm_0_joint_5" value="0"/>
+    <joint name="arm_0_joint_6" value="0"/>
+  </group_state>
+
+  <!-- 夹爪限位取自 URDF：lower -0.1 / upper 0.96 rad -->
+  <group_state name="open" group="gripper">
+    <joint name="arm_0_gripper_right_finger_bottom_joint" value="0.0"/>
+  </group_state>
+  <group_state name="closed" group="gripper">
+    <joint name="arm_0_gripper_right_finger_bottom_joint" value="0.5"/>
+  </group_state>
+
+  <!-- 相邻连杆在关节处必然接触，必须禁用自碰撞检查，否则任何规划都判碰撞 -->
+  <!-- Jackal fixed mounts: measured tangency depth <1e-15 m, not moving contacts. -->
+  <disable_collisions link1="chassis_link" link2="arm_0_base_link" reason="Adjacent"/>
+  <disable_collisions link1="chassis_link" link2="lidar2d_0_link" reason="Adjacent"/>
+  <disable_collisions link1="base_link" link2="default_mount" reason="Adjacent"/>
+  <disable_collisions link1="default_mount" link2="arm_0_base_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_base_link" link2="arm_0_shoulder_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_shoulder_link" link2="arm_0_arm_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_arm_link" link2="arm_0_forearm_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_forearm_link" link2="arm_0_lower_wrist_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_lower_wrist_link" link2="arm_0_upper_wrist_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_upper_wrist_link" link2="arm_0_end_effector_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_end_effector_link"
+                       link2="arm_0_gripper_gripper_base_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_gripper_gripper_base_link"
+                       link2="arm_0_gripper_right_finger_prox_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_gripper_gripper_base_link"
+                       link2="arm_0_gripper_left_finger_prox_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_gripper_right_finger_prox_link"
+                       link2="arm_0_gripper_right_finger_dist_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_gripper_left_finger_prox_link"
+                       link2="arm_0_gripper_left_finger_dist_link" reason="Adjacent"/>
+  <disable_collisions link1="arm_0_gripper_right_finger_prox_link"
+                       link2="arm_0_gripper_left_finger_prox_link" reason="Never"/>
+
+  <!-- 两片指尖在张开/闭合时会被判成互相碰撞（MoveIt 看不到 mimic，左指被动值只能取 0），
+       禁掉这一对，避免抓取前就被自家手指挡住。 -->
+  <disable_collisions link1="arm_0_gripper_right_finger_dist_link"
+                       link2="arm_0_gripper_left_finger_dist_link" reason="Never"/>
+
+  <!-- 隔一个连杆的两端在零位也会贴在一起（2026-10-22 实测：upper_wrist 与 gripper_base 接触，
+       导致整条规划被判「起始位姿碰撞」）。这些是链上距离 2 的固定配对，不是真实碰撞。 -->
+  <disable_collisions link1="default_mount" link2="arm_0_shoulder_link" reason="Always"/>
+  <disable_collisions link1="arm_0_base_link" link2="arm_0_arm_link" reason="Always"/>
+  <disable_collisions link1="arm_0_shoulder_link" link2="arm_0_forearm_link" reason="Always"/>
+  <disable_collisions link1="arm_0_arm_link" link2="arm_0_lower_wrist_link" reason="Always"/>
+  <disable_collisions link1="arm_0_forearm_link" link2="arm_0_upper_wrist_link" reason="Always"/>
+  <disable_collisions link1="arm_0_lower_wrist_link" link2="arm_0_end_effector_link" reason="Always"/>
+  <disable_collisions link1="arm_0_upper_wrist_link"
+                       link2="arm_0_gripper_gripper_base_link" reason="Always"/>
+  <disable_collisions link1="arm_0_end_effector_link"
+                       link2="arm_0_gripper_right_finger_prox_link" reason="Always"/>
+  <disable_collisions link1="arm_0_end_effector_link"
+                       link2="arm_0_gripper_left_finger_prox_link" reason="Always"/>
+
+</robot>

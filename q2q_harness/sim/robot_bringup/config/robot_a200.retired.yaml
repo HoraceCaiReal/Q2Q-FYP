@@ -1,0 +1,76 @@
+# robot.yaml —— 机器人本体配置（唯一真源，第 1 步定稿）
+#
+# 语义：这份文件描述「机器人长什么样、挂在哪个命名空间、装哪些传感器/机械臂」。
+#       bringup.launch.py 每次启动把它同步到 ~/.q2q/setup/a200_kinova/robot.yaml，
+#       再由 clearpath_generator_* 生成 URDF/SRDF/launch/参数。
+#       改机器人（换臂、加相机、改挂载点）只改这里，然后 bringup 时保持 generate:=true。
+#
+# 选型（见 archive/开发基线/01-开发平台.md）：
+#   Husky A200 + Kinova Gen3 Lite + Kinova 2F Lite 夹爪 + Hokuyo UST-10LX 2D 激光
+#   本步只用 2D 激光（RGB-D 第 5 步再接，别提前开，软渲染下很吃 CPU）。
+
+serial_number: a200-0000
+version: 0
+
+system:
+  hosts:
+    - hostname: cpr-a200-0000
+      ip: 192.168.131.1
+  ros2:
+    # 全部节点/话题挂在这个命名空间下：/a200_0000/platform/odom、/a200_0000/cmd_vel ...
+    namespace: a200_0000
+
+platform:
+  attachments:
+    - name: front_bumper
+      type: a200.bumper
+      parent: front_bumper_mount
+    - name: rear_bumper
+      type: a200.bumper
+      parent: rear_bumper_mount
+    - name: top_plate
+      type: a200.top_plate
+
+# 说明（第 1 步踩过的坑，别再犯）：
+#   * a200 的默认 top_plate 只产出三个挂载点：top_plate_default_mount / _front_mount / _rear_mount。
+#     a200 官方 sample 里写的 top_plate_mount_d1 属于 model: pacs 的 PACS 板，用默认板时不存在，
+#     引用了会让 robot_state_publisher 直接 abort（URDF 建树失败），表现为「机器人不 spawn、无 joint_states」。
+#   * sensor_arch / bracket / fath_pivot 是给相机云台用的，第 5 步接 RGB-D 时再加回来。
+
+# 机械臂：Gen3 Lite + 2F Lite 夹爪
+# 注意（第 2 步要查）：当前这套生成器产出的 manipulators/launch/manipulators-service.launch.py
+# 是空的 LaunchDescription，导致臂没有控制器、没有 joint_states。第 2 步专门修这个。
+manipulators:
+  arms:
+    - model: kinova_gen3_lite
+      parent: default_mount
+      xyz: [0.0, 0.0, 0.0]
+      rpy: [0.0, 0.0, 0.0]
+      ip: 192.168.131.40
+      port: 10000
+      poses:
+        - name: custom
+          joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+      gripper:
+        model: kinova_2f_lite
+        xyz: [0.0, 0.0, 0.0]
+        rpy: [0.0, 0.0, 0.0]
+        poses:
+          - name: custom
+            joints: [0.0]
+
+sensors:
+  lidar2d:
+    - model: hokuyo_ust
+      urdf_enabled: true
+      launch_enabled: true
+      parent: top_plate_front_mount
+      xyz: [0.0, 0.0, 0.0]
+      rpy: [0.0, 0.0, 0.0]
+      ros_parameters:
+        urg_node:
+          laser_frame_id: lidar2d_0_laser
+          ip_address: 192.168.131.20
+          ip_port: 10940
+          angle_min: -3.141592653589793
+          angle_max: 3.141592653589793

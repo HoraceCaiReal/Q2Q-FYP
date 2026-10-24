@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  q2q_empty.sdf —— 本工程第 1 步用的最小世界（无 Fuel 依赖，首次启动不联网）
+
+  约定（第 1 步定下，后面所有世界都遵守）：
+    1. 文件名 = <world name>；本文件叫 q2q_empty.sdf，所以 <world name="q2q_empty">。
+       启动器用文件名生成 gz_args，用 name 拼传感器前缀 /world/<name>/model/...，两者必须一致。
+    2. 只放地面 + 光 + 物理/渲染插件；货架、料箱、传送带等在第 3、8 步再进来。
+    3. 不引用 Fuel 远程模型（之前 warehouse.sdf 首次启动要下模型，把 VM 拖死过）。
+
+  插件说明：
+    Physics / UserCommands / SceneBroadcaster —— 物理、spawn/删除模型、把场景发给 GUI，
+                                                 缺 SceneBroadcaster 时 spawn 进去的机器人看不见。
+    Sensors —— 传感器渲染（ogre2）。软渲染下这是 CPU 大头，只要激光雷达时也必须开。
+-->
+<sdf version="1.7">
+  <world name="q2q_empty">
+
+    <physics type="ode">
+      <max_step_size>0.003</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin name="ignition::gazebo::systems::Physics"
+            filename="libignition-gazebo-physics-system.so"/>
+    <plugin name="ignition::gazebo::systems::UserCommands"
+            filename="libignition-gazebo-user-commands-system.so"/>
+    <plugin name="ignition::gazebo::systems::SceneBroadcaster"
+            filename="libignition-gazebo-scene-broadcaster-system.so"/>
+    <plugin name="ignition::gazebo::systems::Sensors"
+            filename="libignition-gazebo-sensors-system.so">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name="ignition::gazebo::systems::Contact"
+            filename="libignition-gazebo-contact-system.so"/>
+
+    <scene>
+      <ambient>0.7 0.7 0.7 1</ambient>
+      <background>0.3 0.7 0.9 1</background>
+      <shadows>0</shadows>
+      <grid>false</grid>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>0</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>0 0 -1</direction>
+    </light>
+
+    <!-- 地面：100 m × 100 m 静态平面 -->
+    <model name="ground_plane">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

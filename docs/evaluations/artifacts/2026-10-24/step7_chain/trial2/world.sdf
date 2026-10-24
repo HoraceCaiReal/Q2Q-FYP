@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.7">
+  <world name="q2q_warehouse">
+
+    
+    <physics type="ode">
+      <max_step_size>.02</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin name="ignition::gazebo::systems::Physics" filename="libignition-gazebo-physics-system.so" />
+    <plugin name="ignition::gazebo::systems::Contact" filename="libignition-gazebo-contact-system.so" />
+    <plugin name="ignition::gazebo::systems::UserCommands" filename="libignition-gazebo-user-commands-system.so" />
+    <plugin name="ignition::gazebo::systems::SceneBroadcaster" filename="libignition-gazebo-scene-broadcaster-system.so" />
+    <plugin name="ignition::gazebo::systems::Sensors" filename="libignition-gazebo-sensors-system.so">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name="ignition::gazebo::systems::Contact" filename="libignition-gazebo-contact-system.so" />
+
+    <scene>
+      <ambient>0.7 0.7 0.7 1</ambient>
+      <background>0.3 0.7 0.9 1</background>
+      <shadows>0</shadows>
+      <grid>false</grid>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>0</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>0 0 -1</direction>
+    </light>
+
+    
+    <model name="ground_plane">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    
+    <model name="wall_north">
+      <static>true</static>
+      <pose>0 5 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>12 0.2 2</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>12 0.2 2</size></box></geometry>
+          <material><ambient>0.55 0.55 0.6 1</ambient><diffuse>0.55 0.55 0.6 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_west">
+      <static>true</static>
+      <pose>-6 0 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 10 2</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 10 2</size></box></geometry>
+          <material><ambient>0.55 0.55 0.6 1</ambient><diffuse>0.55 0.55 0.6 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="wall_east">
+      <static>true</static>
+      <pose>6 0 1.0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.2 10 2</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.2 10 2</size></box></geometry>
+          <material><ambient>0.55 0.55 0.6 1</ambient><diffuse>0.55 0.55 0.6 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    
+    <model name="shelf_a">
+      <static>true</static>
+      <pose>-2.0 3.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="shelf_b">
+      <static>true</static>
+      <pose>2.0 3.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="shelf_c">
+      <static>true</static>
+      <pose>-2.0 -1.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="shelf_d">
+      <static>true</static>
+      <pose>2.0 -1.0 0.8 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1.2 0.6 1.6</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>1.2 0.6 1.6</size></box></geometry>
+          <material><ambient>0.35 0.42 0.5 1</ambient><diffuse>0.35 0.42 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    
+    <model name="bin_1">
+      <static>true</static>
+      <pose>-0.8 0.9 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bin_2">
+      <static>true</static>
+      
+      <pose>0.4 1.2 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bin_3">
+      <static>true</static>
+      <pose>1.6 0.2 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bin_4">
+      <static>true</static>
+      <pose>-1.8 1.2 0.15 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.4 0.4 0.3</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.4 0.4 0.3</size></box></geometry>
+          <material><ambient>0.85 0.65 0.25 1</ambient><diffuse>0.85 0.65 0.25 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+
+    
+    <model name="workbench">
+      <static>true</static>
+      <pose>1.35 0.0 0.25 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>0.40 0.60 0.50</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.40 0.60 0.50</size></box></geometry>
+          <material><ambient>0.45 0.40 0.35 1</ambient><diffuse>0.45 0.40 0.35 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    
+    <model name="pick_bin">
+      
+      <plugin name="q2q::KinematicCarry" filename="libq2q_kinematic_carry.so" />
+      <pose>1.20 0.0 0.525 0 0 0</pose>
+      <link name="link">
+          <sensor name="pick_contacts" type="contact"><always_on>true</always_on><update_rate>50</update_rate><contact><collision>c</collision></contact></sensor>
+        <inertial>
+          <mass>0.05</mass>
+          <inertia><ixx>0.0000208333333</ixx><iyy>0.0000208333333</iyy><izz>0.0000208333333</izz>
+                   <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz></inertia>
+        </inertial>
+        
+        <collision name="c"><geometry><box><size>0.05 0.05 0.05</size></box></geometry></collision>
+        <visual name="v">
+          <geometry><box><size>0.05 0.05 0.05</size></box></geometry>
+          <material><ambient>0.85 0.45 0.15 1</ambient><diffuse>0.85 0.45 0.15 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

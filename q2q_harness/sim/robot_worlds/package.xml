@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>robot_worlds</name>
+  <version>0.1.0</version>
+  <description>
+    Gazebo 世界文件（纯数据包）。当前只有 q2q_empty（地面 + 光 + 物理/渲染插件，
+    无 Fuel 依赖）；仓库货架、料箱、传送带等场景在第 3、8 步加进来。
+    约定：文件名 == world name（q2q_empty.sdf 里必须写 &lt;world name="q2q_empty"&gt;）。
+  </description>
+  <maintainer email="q2q@fyp.local">Cai Haoxian</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>robot_sim_control</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

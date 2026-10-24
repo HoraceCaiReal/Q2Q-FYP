@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "cycles_requested": 1,
+  "history": [
+    {
+      "cycle": 1,
+      "open": {
+        "result": {
+          "reached": true,
+          "position": 0.0,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 112.32679121536881
+      },
+      "close": {
+        "result": {
+          "reached": true,
+          "position": 0.8998,
+          "stalled": false,
+          "status": 4,
+          "effort_limit_enforced": false
+        },
+        "gap_mm": 25.691931490528564
+      }
+    }
+  ]
+}

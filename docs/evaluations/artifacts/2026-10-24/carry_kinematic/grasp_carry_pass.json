@@ -1,0 +1,163 @@
+{
+  "passed": true,
+  "approach": "topdown",
+  "grasp_mode": "suction_approx",
+  "parameters": {
+    "approach": "topdown",
+    "open_grip": 0.0,
+    "close_grip": 0.7,
+    "effort": 5.0,
+    "pregrasp": 0.05,
+    "tip_past": -0.01,
+    "steps": 3,
+    "nudge": 0.008,
+    "step": 0.025,
+    "output": "/home/ros/.q2q/runs/step3_20261024_160146/grasp_carry.json",
+    "close_servo": false,
+    "close_mode": "direct",
+    "close_step": 0.008,
+    "contact_mm": 0.2,
+    "contact_flat": 2,
+    "preload": 0.02,
+    "hold": 15.0,
+    "box_center": [
+      1.2,
+      0.0,
+      0.525
+    ],
+    "suction": true
+  },
+  "model_sha256": "603258c62a4bec54080cdc9febbfde6f617046e1592dc07211ad2fd398841192",
+  "gripper_collision": "mesh",
+  "baseline_center_world": [
+    1.2,
+    0.0,
+    0.525
+  ],
+  "P1": {
+    "base_x": 0.8774,
+    "active_controllers": [
+      "arm_0_gripper_controller",
+      "arm_0_joint_trajectory_controller",
+      "joint_state_broadcaster",
+      "platform_velocity_controller"
+    ],
+    "yaw_deg": -0.0,
+    "box_vs_sdf_mm": 0.0
+  },
+  "P3": {
+    "source": "pose/info 真值",
+    "box_center_base": [
+      0.3226,
+      0.0,
+      0.525
+    ]
+  },
+  "P2": {
+    "base_motion_mm": 0.0,
+    "station_x": 0.8774109159551131,
+    "station_y": -4.986736627154961e-07
+  },
+  "open": {
+    "reached": true,
+    "position": 0.0,
+    "stalled": false,
+    "status": 4,
+    "effort_limit_enforced": false
+  },
+  "pregrasp": {
+    "target": [
+      0.3226,
+      0.0,
+      0.689
+    ],
+    "radius": 0.005,
+    "error_code": 1,
+    "points": 58
+  },
+  "scene": {
+    "object": "pick_bin",
+    "allowed_links": [
+      "arm_0_gripper_left_finger_dist_link",
+      "arm_0_gripper_right_finger_dist_link",
+      "arm_0_gripper_left_finger_prox_link",
+      "arm_0_gripper_right_finger_prox_link"
+    ]
+  },
+  "insert": {
+    "error_code": 1,
+    "fraction": 1.0,
+    "points": 14,
+    "target_ee": [
+      0.3204657888059154,
+      -0.004590527812526713,
+      0.6477981124181045
+    ]
+  },
+  "align": {
+    "lateral_error_mm": 4.3,
+    "depth_error_mm": 2.1,
+    "gap_mm": 112.3,
+    "jaw_center_base": [
+      0.3206,
+      -0.0038,
+      0.5371
+    ],
+    "box_center_base": [
+      0.3226,
+      0.0,
+      0.525
+    ],
+    "box_drift_mm": 0.0
+  },
+  "close": {
+    "reached": false,
+    "position": 0.5425,
+    "stalled": true,
+    "status": 4,
+    "effort_limit_enforced": false
+  },
+  "P5": {
+    "gap_mm": 60.7,
+    "box_pushed_mm": 6.2,
+    "jaw_center_base": [
+      0.3233,
+      -0.0057,
+      0.5446
+    ],
+    "box_center_base": [
+      0.3235,
+      -0.0059,
+      0.5251
+    ]
+  },
+  "suction": {
+    "attach": true
+  },
+  "P6": {
+    "steps": [
+      {
+        "target_z": 0.6894,
+        "box_z": 0.5447,
+        "error_code": 1
+      },
+      {
+        "target_z": 0.7118,
+        "box_z": 0.5675,
+        "error_code": 1
+      },
+      {
+        "target_z": 0.7345,
+        "box_z": 0.5894,
+        "error_code": 1
+      }
+    ],
+    "rise_mm": 64.4
+  },
+  "P6b": {
+    "hold_s": 15.0,
+    "z_at_lift": 0.5862,
+    "z_after_hold": 0.5944,
+    "drop_mm": -8.2
+  }
+}

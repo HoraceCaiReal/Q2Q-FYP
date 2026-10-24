@@ -1,0 +1,88 @@
+# slam_toolbox.yaml —— 建图阶段（slam:=true）的参数
+#
+# ⚠️ 顶层键写 `slam_toolbox`（裸节点名），**导航空间前缀由 launch 补**，别手写进这个文件。
+#   原因：ROS 2 的 parameters YAML 按「完整节点名」匹配（去掉开头 /）。
+#   我们的 slam_toolbox 跑在命名空间 a200_0000 下，完整名是 /a200_0000/slam_toolbox；
+#   如果文件里只写裸 `slam_toolbox:`，节点会**静默用自己的代码默认值**
+#   （scan_topic 默认 /scan）——现象是「激光话题一个订阅者都没有」，地图永远不出来。
+#   2026-10-21 实测对照：
+#     文件 key = a200_0000/slam_toolbox  → 订阅了 sensors/lidar2d_0/scan（正确）
+#     文件 key = slam_toolbox            → 仍然订阅 /scan（无效）
+#   nav2.launch.py 用 nav2_common 的 RewrittenYaml(root_key=命名空间) 在启动时生成
+#   一份带前缀的临时文件，所以命名空间只写在 launch 里一处，改命名空间不会漏改这里。
+#   （这也正是 Nav2 官方 nav2.yaml 不写命名空间前缀的原因，两处机制一致。）
+#
+# 四个已敲定接口在这里的落点：
+#   接口 1（激光观测源）：scan_topic = sensors/lidar2d_0/scan，相对名，补成 /a200_0000/...
+#   接口 2（地图文件）：resolution 0.05，扫描产物另存到 robot_worlds/maps/
+#
+# 带 ★ 的是偏离 slam_toolbox 官方默认值（mapper_params_online_sync.yaml）的地方。
+
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: True                    # ★ Gazebo 的 /clock
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    odom_frame: odom
+    map_frame: map
+    base_frame: base_footprint            # 与第 2 步根化补丁后的 TF 根一致
+    scan_topic: sensors/lidar2d_0/scan    # ★ 接口 1
+    use_map_saver: true
+    mode: mapping                         # ★ 建图模式
+
+    debug_logging: false
+    throttle_scans: 1
+    transform_publish_period: 0.05        # ★ 60Hz→20Hz，map→odom 只给 Nav2 用
+    map_update_interval: 2.0              # ★ 5s→2s
+    resolution: 0.05                      # ★ 接口 2：0.05 m/px
+    min_laser_range: 0.0
+    max_laser_range: 20.0                 # ★ 官方默认 20，不改成 25 也不改成 12（2026-10-21 实测）：
+                                          #   25（激光上限）→ 地图 1193×1140 = 1.36 M 格、原点 (-28.4,-28.6)，
+                                          #     全是仓库外的空地，全局代价地图在 136 万格上膨胀，VM 顶不住；
+                                          #   12            → 地图只剩 188×151 格，且一个障碍格都没有
+                                          #     （自由 12.9% / 未知 87.1% / 障碍 0%），等于没扫出来。
+                                          #   20 是官方默认值，落在"够大"和"够细"之间。
+    minimum_time_interval: 0.3            # ★ 0.5→0.3，配合激光 15 Hz
+    transform_timeout: 0.5              # ★ 0.2→0.5：等 TF 更耐心（ekf 曾报跟不上 50 Hz，整帧激光被丢掉）
+    tf_buffer_duration: 30.0
+    stack_size_to_use: 40000000
+    enable_interactive_mode: false        # ★ 无 GUI，关掉交互式修正
+
+    use_scan_matching: true
+    use_scan_barycenter: true
+    minimum_travel_distance: 0.3
+    minimum_travel_heading: 0.3
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 10.0
+    link_match_minimum_response_fine: 0.1
+    link_scan_maximum_distance: 1.5
+    loop_search_maximum_distance: 3.0
+    do_loop_closing: true
+    loop_match_minimum_chain_size: 10
+    loop_match_maximum_variance_coarse: 3.0
+    loop_match_minimum_response_coarse: 0.35
+    loop_match_minimum_response_fine: 0.45
+
+    correlation_search_space_dimension: 0.5
+    correlation_search_space_resolution: 0.01
+    correlation_search_space_smear_deviation: 0.1
+
+    loop_search_space_dimension: 8.0
+    loop_search_space_resolution: 0.05
+    loop_search_space_smear_deviation: 0.03
+
+    distance_variance_penalty: 0.5
+    angle_variance_penalty: 1.0
+    fine_search_angle_offset: 0.00349
+    coarse_search_angle_offset: 0.349
+    coarse_angle_resolution: 0.0349
+    minimum_angle_penalty: 0.9
+    minimum_distance_penalty: 0.5
+    use_response_expansion: true
+    min_pass_through: 2
+    occupancy_threshold: 0.1

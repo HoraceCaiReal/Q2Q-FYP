@@ -1,0 +1,145 @@
+{
+  "passed": true,
+  "approach": "topdown",
+  "parameters": {
+    "approach": "topdown",
+    "open_grip": 0.0,
+    "close_grip": 0.7,
+    "effort": 5.0,
+    "pregrasp": 0.05,
+    "tip_past": -0.01,
+    "steps": 3,
+    "nudge": 0.008,
+    "step": 0.025,
+    "output": "/home/ros/.q2q/runs/step3_20261024_122353/grasp.json",
+    "box_center": [
+      1.2,
+      0.0,
+      0.525
+    ]
+  },
+  "model_sha256": "3c6efaec0d6eb2d800a0517dcee18ac898f3a2a5730589022b7ce966163c10fc",
+  "gripper_collision": "convex",
+  "baseline_center_world": [
+    1.2,
+    0.0,
+    0.525
+  ],
+  "P1": {
+    "base_x": 0.8777,
+    "active_controllers": [
+      "arm_0_gripper_controller",
+      "arm_0_joint_trajectory_controller",
+      "joint_state_broadcaster",
+      "platform_velocity_controller"
+    ],
+    "yaw_deg": -0.0,
+    "box_vs_sdf_mm": 0.0
+  },
+  "P3": {
+    "source": "pose/info 真值",
+    "box_center_base": [
+      0.3223,
+      0.0,
+      0.525
+    ]
+  },
+  "P2": {
+    "base_motion_mm": 0.0,
+    "station_x": 0.877651965797215,
+    "station_y": -5.009459285696833e-07
+  },
+  "open": {
+    "reached": true,
+    "position": 0.0002,
+    "stalled": false,
+    "status": 4,
+    "effort_limit_enforced": false
+  },
+  "pregrasp": {
+    "target": [
+      0.3223,
+      0.0,
+      0.689
+    ],
+    "radius": 0.005,
+    "error_code": 1,
+    "points": 58
+  },
+  "scene": {
+    "object": "pick_bin",
+    "allowed_links": [
+      "arm_0_gripper_left_finger_dist_link",
+      "arm_0_gripper_right_finger_dist_link",
+      "arm_0_gripper_left_finger_prox_link",
+      "arm_0_gripper_right_finger_prox_link"
+    ]
+  },
+  "insert": {
+    "error_code": 1,
+    "fraction": 1.0,
+    "points": 15,
+    "target_ee": [
+      0.3200521973672285,
+      -0.0006040733250963424,
+      0.6478865082540695
+    ]
+  },
+  "align": {
+    "lateral_error_mm": 1.8,
+    "depth_error_mm": 3.2,
+    "gap_mm": 112.3,
+    "jaw_center_base": [
+      0.3206,
+      -0.0005,
+      0.5382
+    ],
+    "box_center_base": [
+      0.3223,
+      0.0,
+      0.525
+    ],
+    "box_drift_mm": 0.0
+  },
+  "close": {
+    "reached": false,
+    "position": 0.557,
+    "stalled": true,
+    "status": 4,
+    "effort_limit_enforced": false
+  },
+  "P5": {
+    "gap_mm": 60.0,
+    "box_pushed_mm": 1.7,
+    "jaw_center_base": [
+      0.3242,
+      0.0014,
+      0.5446
+    ],
+    "box_center_base": [
+      0.3231,
+      0.0014,
+      0.525
+    ]
+  },
+  "P6": {
+    "steps": [
+      {
+        "target_z": 0.6894,
+        "box_z": 0.5454,
+        "error_code": 1
+      },
+      {
+        "target_z": 0.7114,
+        "box_z": 0.5662,
+        "error_code": 1
+      },
+      {
+        "target_z": 0.7328,
+        "box_z": 0.5877,
+        "error_code": 1
+      }
+    ],
+    "rise_mm": 62.7
+  }
+}
